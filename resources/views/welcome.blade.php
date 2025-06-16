@@ -1,10 +1,8 @@
-@extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
+@extends('layouts.app')
 
-@section('auth_header', 'Welcome to Blog')
-
-@section('auth_body')
-    <div class="text-center">
-        <a href="{{ route('login') }}" class="btn btn-outline-dark mb-2 w-100">Login</a>
-        <a href="{{ route('register') }}" class="btn btn-dark w-100">Register</a>
+@section('content')
+    <div class="container">
+        <h1>Welcome to the Bookstore</h1>
+        <p>This is the public homepage. Anyone can view this.</p>
     </div>
 @endsection

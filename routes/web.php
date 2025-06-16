@@ -1,37 +1,35 @@
 <?php
+use App\Http\Controllers\PublicController;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\UserDashboardController;
-use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use Illuminate\Support\Facades\Auth;
+
+// Route::get("/", function () {
+//     return view('');
+// });
+// Route::get('/books',[BookController::class,'index'])->name('books.index');
+// Route::get('/books/{book}',[BookController::class,'show'])->name('books.show');
+
+// Route::get('/book/download/{book}',[BookController::class,'download'])->middleware('auth')->name('books.download');
+Route::get('/', [PublicController::class, 'index'])->name('home');
 
 Auth::routes();
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Authenticated user routes
-Route::middleware(['auth'])->group(function () {
-    // Common user dashboard
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Book download route for users
-    Route::get('books/download/{book}', [BookController::class, 'download'])
-        ->name('books.download')
-        ->middleware('can:download books');
-});
-
-// Admin routes
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('categories', CategoryController::class);
-    Route::resource('authors', AuthorController::class);
+Route::middleware(['auth','role:admin'])->prefix('admin')->name('admin')->group(function () {
+Route::get('/', [AdminDashboardController::class,'index'])->name('dashboard');
     Route::resource('books', BookController::class);
+    Route::resource('authors', AuthorController::class);
+    Route::resource('categories', CategoryController::class);
+});
 
-    // Additional admin routes
-    // Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+    Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });

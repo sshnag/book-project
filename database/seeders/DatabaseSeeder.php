@@ -10,8 +10,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'user']);
+        $this->call(RolePermissionSeeder::class);
+
 
         $this->call([
             CategoriesTableSeeder::class,
