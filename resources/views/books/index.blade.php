@@ -1,30 +1,34 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
-<div class="container mt-4">
-    <h2 class="mb-4">All Books</h2>
+<table id="books-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
 
-    <div class="row">
-        @forelse($books as $book)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    @if($book->cover_image)
-                        <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top" alt="{{ $book->title }}">
-                    @endif
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $book->title }}</h5>
-                        <p class="card-text text-muted">{{ Str::limit($book->description, 80) }}</p>
-                        <a href="#" class="btn btn-primary btn-sm">Details</a>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <p>No books available.</p>
-        @endforelse
-    </div>
-
-    <div class="d-flex justify-content-center">
-        {{ $books->links() }}
-    </div>
-</div>
+@push('scripts')
+<script>
+$(function() {
+    $('#books-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('admin.books.index') }}',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'title', name: 'title' },
+            { data: 'author.name', name: 'author.name' },
+            { data: 'category.name', name: 'category.name' },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
+        ]
+    });
+});
+</script>
+@endpush
 @endsection

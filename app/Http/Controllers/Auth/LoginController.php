@@ -3,47 +3,55 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use HasRoles;
+use App\Models\User;
+
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-
-
-protected function redirectTo()
-{
-    if (Auth::user()->hasRoles('admin')) {
-        return '/admin/dashboard';
-    } elseif (Auth::user()->hasRoles('user')) {
-        return '/dashboard';
+    public function showLoginForm()
+    {
+        return view('auth.login');
     }
 
-    return '/books'; // default fallback
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+            return $this->redirectTo();
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput();
+    }
+
+   protected function redirectTo()
+{
+    $user = Auth::user();
+
+    if ($user->hasRole('admin')) {
+        return '/admin/dashboard';
+    }
+
+    return '/user/dashboard';
 }
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

@@ -14,22 +14,27 @@ use JeroenNoten\LaravelAdminLte\View\Components\Tool\Datatable;
 
 class BookController extends Controller
 {
-public function index(Request $request)
-{
+public function index(Request $request) {
     if ($request->ajax()) {
-        $books = Book::with('author', 'category')->select('books.*');
-
-        return DataTables::of($books)
-            ->addColumn('author_name', fn($book) => $book->author->name ?? 'Unknown')
-            ->addColumn('category_name', fn($book) => $book->category->name ?? 'Unknown')
-            ->addColumn('action', function ($row) {
-                return view('books.partials.actions', compact('row'))->render();
+        return DataTables::of(Book::with(['author', 'category']))
+            ->addColumn('action', function($book) {
+                return '
+                    <a href="'.route('admin.books.edit', $book->id).'"
+                       class="btn btn-xs btn-primary">Edit</a>
+                    <form action="'.route('admin.books.destroy', $book->id).'"
+                          method="POST" style="display:inline">
+                        '.csrf_field().'
+                        '.method_field('DELETE').'
+                        <button type="submit" class="btn btn-xs btn-danger"
+                                onclick="return confirm(\'Are you sure?\')">Delete</button>
+                    </form>
+                ';
             })
-            ->rawColumns(['action']) //makes render in action
-            ->make(true);
+            ->rawColumns(['action'])
+            ->toJson();
     }
 
-    return view('books.index');
+    return view('admin.books.index');
 }
 
 
@@ -44,7 +49,7 @@ public function create(){
 
 public function store(Request $request)
 {
-    $request->validate([
+    $validated=$request->validate([
         'title'=>'required|string|max:255',
         'description'=>'required',
         'author_id'=>'required|exists:authors,id',
@@ -54,7 +59,7 @@ public function store(Request $request)
         'file_path'=>'required|string|max:10240',
         'cover_image'=>'nullable|image|mimes:jpg,png,jpeg|max:2048' //mimes to identify the type of the file
     ]);
-    $data= $request->except('cover_image','file_path');
+    $book=Book::create($validated);
     if ($request->hasFile('cover_image')){
         $data['cover_image']=$request->file('cover_image')->store('covers','public');
 
@@ -62,7 +67,7 @@ public function store(Request $request)
     if($request->except('file_path')){
         $data['file_path']=$request->file('file_path')->store('books','public');
     }
-    Book::create($data);
+    $book->save();
     return redirect()->route('books.index')->with('success','Book creates!');
 }
 

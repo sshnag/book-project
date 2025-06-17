@@ -389,36 +389,48 @@ return [
 //     ],
 
 'menu' => [
-
-    // Top section
     [
         'text' => 'Dashboard',
-        'url'  => 'admin/dashboard',
-        'icon' => 'fas fa-fw fa-tachometer-alt',
+        'url'  => '/admin/dashboard',
+        'icon' => 'fas fa-tachometer-alt'
     ],
-
-
-    ['header' => 'BOOKSTORE MANAGEMENT'],
-
-    // Books
     [
-        'text' => 'Books',
-        'url'  => 'admin/books',
-        'icon' => 'fas fa-fw fa-book',
+        'text'    => 'Add New',
+        'icon'    => 'fas fa-plus',
+        'submenu' => [
+            [
+                'text' => 'Author',
+                'url'  => '/admin/authors/create',
+            ],
+            [
+                'text' => 'Category',
+                'url'  => '/admin/categories/create',
+            ],
+            [
+                'text' => 'Book',
+                'url'  => '/admin/books/create',
+            ],
+        ],
     ],
-
-    // Authors
     [
         'text' => 'Authors',
-        'url'  => 'admin/authors',
-        'icon' => 'fas fa-fw fa-pen-nib',
+        'url'  => '/admin/authors',
+        'icon' => 'fas fa-feather'
     ],
-
-    // Categories
     [
         'text' => 'Categories',
-        'url'  => 'admin/categories',
-        'icon' => 'fas fa-fw fa-list',
+        'url'  => '/admin/categories',
+        'icon' => 'fas fa-tags'
+    ],
+    [
+        'text' => 'Books',
+        'url'  => '/admin/books',
+        'icon' => 'fas fa-book'
+    ],
+    [
+        'text' => 'Users',
+        'url'  => '/admin/users',
+        'icon' => 'fas fa-user'
     ],
 ],
 
