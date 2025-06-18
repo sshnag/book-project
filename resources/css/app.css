@@ -2,19 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-            background: #f0f2f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.welcome-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card {
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+/* Book Form Styling */
+.book-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.book-form label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.book-form .form-control {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+}
+
+.book-form .form-control-file {
+    display: block;
+    width: 100%;
+}
+
+.book-form .preview-image {
+    max-height: 150px;
+    margin-top: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.book-form .file-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    color: #495057;
+    text-decoration: none;
+}
+
+.book-form .file-link:hover {
+    background-color: #dee2e6;
+}
+
+.book-form .remove-checkbox {
+    margin-left: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .book-form {
+        padding: 15px;
+    }
+}
+ .table td {
+            vertical-align: middle;
         }
-        .welcome-container {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .card {
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        .table th {
+            white-space: nowrap;
         }

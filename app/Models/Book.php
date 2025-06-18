@@ -1,13 +1,21 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    public function author(){
+    protected $fillable = [
+        'title',
+        'description',
+        'author_id',
+        'category_id',
+        'published_at',
+        'uploaded_at',
+        'file_path',
+        'cover_image'    ];
+    public function author()
+    {
         return $this->belongsTo(Author::class);
     }
     public function category()

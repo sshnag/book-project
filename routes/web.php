@@ -22,12 +22,15 @@ Route::get('/', [PublicController::class, 'index'])->name('home');
 // Authentication routes
 Auth::routes();
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function() {
     Route::resource('books', BookController::class);
+
     Route::resource('authors', AuthorController::class);
+
     Route::resource('categories', CategoryController::class);
-    Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
+
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('dashboard');
 });
 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {

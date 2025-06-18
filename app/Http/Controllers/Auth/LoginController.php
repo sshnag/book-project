@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash as HashFacade;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -16,35 +17,37 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email',
+            'password' => 'required|string',
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-            return $this->redirectTo();
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->withInput();
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! HashFacade::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'email' => 'Invalid credentials',
+            ])->withInput();
+        }
+
+        Auth::login($user, $request->filled('remember'));
+
+        $request->session()->regenerate();
+
+        return $this->redirectBasedOnRole($user);
     }
 
-   protected function redirectTo()
-{
-    $user = Auth::user();
-
-    if ($user->hasRole('admin')) {
-        return '/admin/dashboard';
-    }
-
-    return '/user/dashboard';
-}
-
-    public function __construct()
+    protected function redirectBasedOnRole(User $user)
     {
-        $this->middleware('guest')->except('logout');
+        if ($user->hasRole('admin')) {
+            return redirect()->intended(route('admin.dashboard'));
+        }
+
+        return redirect()->intended(route('user.dashboard'));
     }
 
     public function logout(Request $request)
@@ -53,5 +56,10 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
     }
 }

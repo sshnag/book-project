@@ -1,8 +1,11 @@
-<a href="{{ route('books.show', $row->id) }}" class="btn btn-sm btn-info">View</a>
-<a href="{{ route('books.edit', $row->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-<form method="POST" action="{{ route('books.destroy', $row->id) }}" >
-    @csrf
-    @method('DELETE')
-    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-</form>
+<div class="btn-group">
+    <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-warning btn-sm">
+        <i class="fas fa-edit"></i>
+    </a>
+    <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display:inline">
+        @csrf @method('DELETE')
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this book?')">
+            <i class="fas fa-trash"></i>
+        </button>
+    </form>
+</div>

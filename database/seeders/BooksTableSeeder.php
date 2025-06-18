@@ -19,9 +19,8 @@ class BooksTableSeeder extends Seeder
                 'title' => "Sample Book $i",
                 'description' => "This is a sample description for Book $i.",
                 'author_id' => rand(1, 5),       // Assuming 5 authors seeded
-                'category_id' => rand(1, 5),     // Assuming 5 categories seeded
+                'category_id' => rand(1, 5),     //Input 5 categories seeded
                 'published_at' => now()->subDays(rand(10, 100)),
-                'uploaded_at' => now(),
                 'cover_image' => 'default.jpg',  // Just a placeholder, ensure file exists if using storage
                 'file_path' => 'books/sample.pdf', // Placeholder path
                 'download_count' => rand(0, 100),

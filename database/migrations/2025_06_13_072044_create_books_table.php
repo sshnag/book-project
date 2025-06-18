@@ -14,19 +14,29 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-$table->text('description');
-            $table->foreignId('author_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->timestamp('published_at')->nullable();
-            $table->timestamp('uploaded_at')->nullable();
-            $table->string('cover_image')->nullable();
+            $table->text('description');
+
+            // Use unsignedBigInteger for foreign keys
+            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('category_id');
+
+            $table->date('published_at')->nullable();
             $table->string('file_path');
-
+            $table->string('cover_image')->nullable();
             $table->integer('download_count')->default(0);
-
+            $table->softDeletes();
             $table->timestamps();
-                        $table->softDeletes();
 
+            // Add foreign key constraints
+            $table->foreign('author_id')
+                  ->references('id')
+                  ->on('authors')
+                  ->onDelete('cascade');
+
+            $table->foreign('category_id')
+                  ->references('id')
+                  ->on('categories')
+                  ->onDelete('cascade');
         });
     }
 
