@@ -103,7 +103,7 @@
     </div>
 
             <div class="form-group text-right">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-outline-dark">
                     {{ isset($book) ? 'Update' : 'Save' }} Book
                 </button>
                 <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">Cancel</a>

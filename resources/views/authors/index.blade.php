@@ -2,7 +2,7 @@
 @section('title', 'Authors')
 @section('content_header')
     <h1>Authors</h1>
-    <a href="{{ route('admin.authors.create') }}" class="btn btn-primary">Add Author</a>
+    <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-dark">Add Author</a>
 @endsection
 @section('content')
     @if (session('success'))

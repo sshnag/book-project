@@ -2,7 +2,8 @@
 @section('title', 'Categories')
 @section('content_header')
     <h1>Categories</h1>
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Add Category</a>
+    <br>
+    <a href="{{ route('admin.categories.create') }}" class="btn btn-outline-dark">Add Category</a>
 @endsection
 
 @section('content')

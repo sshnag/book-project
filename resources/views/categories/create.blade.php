@@ -20,10 +20,10 @@
 
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+                <input type="text" name="name" class="form-control" value="{{ old('name') }}" >
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Create Category</button>
+            <button type="submit" class="btn btn-outline-dark mt-3">Create Category</button>
             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary mt-3">Back</a>
         </form>
     </div>

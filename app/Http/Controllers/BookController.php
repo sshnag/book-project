@@ -5,26 +5,32 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables;
+
 class BookController extends Controller
 {
-public function index(Request $request)
-{
-      if ($request->ajax()) {
-        return DataTables::of(Book::with(['author', 'category']))
-            ->addColumn('action', function ($book) {
-                return view('books.partials.action', compact('book'))->render();
-            })
-            ->editColumn('published_at', function ($book) {
-                return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
-            })
-            ->rawColumns(['action'])
-            ->toJson();
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            return DataTables::of(Book::with(['author', 'category'])->select('books.*'))
+                ->addColumn('author.name', function ($book) {
+                    return $book->author->name ?? 'N/A';
+                })
+                ->addColumn('category.name', function ($book) {
+                    return $book->category->name ?? 'N/A';
+                })
+                ->addColumn('action', function ($book) {
+                    return view('books.partials.action', compact('book'))->render();
+                })
+                ->editColumn('published_at', function ($book) {
+                    return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
+                })
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+        return view('books.index');
     }
-
-    return view('books.index');
-}
 
     public function create()
     {
@@ -72,17 +78,17 @@ public function index(Request $request)
             'cover_image'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048', //mimes to identify the type of the file
         ]);
 
-    if ($request->hasFile('file_path')) {
-        // Delete old file if exists
-        if ($book->file_path) {
-            Storage::disk('public')->delete($book->file_path);
+        if ($request->hasFile('file_path')) {
+            // Delete old file if exists
+            if ($book->file_path) {
+                Storage::disk('public')->delete($book->file_path);
+            }
+            $validated['file_path'] = $request->file('file_path')->store('books', 'public');
         }
-        $validated['file_path'] = $request->file('file_path')->store('books', 'public');
-    }
 
-    $book->update($validated);
+        $book->update($validated);
 
-    return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
+        return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
     }
     public function show(Book $book)
     {

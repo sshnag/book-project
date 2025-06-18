@@ -12,7 +12,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="books-table" class="table table-bordered table-striped">
+            <table id="bookproject" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -47,44 +47,44 @@
 
     <script>
         $(function() {
-            $('#books-table').DataTable({
+            $('#bookproject').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.books.index') }}",
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'title', name: 'title' },
+                ajax: {
+                    '{{ route('admin.books.index') }}',
+
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'title',
+                        name: 'title'
+                    },
                     {
                         data: 'author.name',
-                        name: 'author.name',
-                        render: function(data) {
-                            return data || 'N/A';
-                        }
+                        name: 'author.name'
                     },
                     {
                         data: 'category.name',
-                        name: 'category.name',
-                        render: function(data) {
-                            return data || 'N/A';
-                        }
+                        name: 'category.name'
                     },
                     {
                         data: 'published_at',
-                        name: 'published_at',
-                        render: function(data) {
-                            return data || 'N/A';
-                        }
+                        name: 'published_at'
                     },
                     {
                         data: 'action',
                         name: 'action',
                         orderable: false,
-                        searchable: false,
-                        className: 'text-center'
+                        searchable: false
                     }
-                ],
+                ];
+
                 responsive: true,
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
         });
     </script>
