@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 class BookController extends Controller
 {
     public function dataTableLogic(Request $request)
@@ -159,9 +161,16 @@ return redirect()->route('admin.books.index')->with('success', 'Book added succe
     }
     public function show(Book $book)
     {
-        $book=Book::findOrFail($book->id);
-        return view('books.show', compact('book'))->with('', $book);
+         $book = Book::with(['author', 'category'])->findOrFail($book->id);
+
+    if (Auth::check() && Auth::user()->role === 'admin') {
+        return view('books.show', compact('book'));
     }
+
+    return view('user.show', compact('book'));
+    }
+
+
 
     public function destroy(Book $book)
     {
