@@ -45,7 +45,7 @@
         <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
         <div class="card-body">
           <h6 class="card-title">{{ $book->title }}</h6>
-          <a href="{{ route('admin.books.create', $book->id) }}" class="btn btn-sm btn-outline-primary mt-2">View</a>
+          <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-outline-primary mt-2">View</a>
         </div>
       </div>
     @endforeach
@@ -61,7 +61,7 @@
         <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
         <div class="card-body">
           <h6 class="card-title">{{ $book->title }}</h6>
-          <a href="{{ route('admin.books.create', $book->id) }}" class="btn btn-sm btn-outline-success mt-2">View</a>
+          <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-outline-success mt-2">View</a>
         </div>
       </div>
     @endforeach
@@ -80,7 +80,7 @@
             <h5 class="card-title">{{ $book->title }}</h5>
             <p class="card-subtitle mb-2 text-muted">By {{ $book->author->name ?? 'Unknown' }}</p>
             <p class="card-text">{{ Str::limit($book->description, 100) }}</p>
-            <a href="{{ route('admin.books.create', $book->id) }}" class="btn btn-primary mt-auto">View Details</a>
+            <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-primary mt-auto">View Details</a>
           </div>
         </div>
       </div>

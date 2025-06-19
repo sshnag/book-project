@@ -63,12 +63,12 @@ return [
     |
     */
 
-    // 'logo' => '<b>Admin</b>LTE',
-    // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    // 'logo_img_class' => 'brand-image img-circle elevation-3',
-    // 'logo_img_xl' => null,
-    // 'logo_img_xl_class' => 'brand-image-xs',
-    // 'logo_img_alt' => 'Admin Logo',
+'logo' => '<i class="fas fa-book-open"></i> <b>Bookie</b>Admin',
+'logo_img' => null, // No image logo
+'logo_img_class' => '',
+'logo_img_xl' => null,
+'logo_img_xl_class' => '',
+'logo_img_alt' => '',
 
     /*
     |--------------------------------------------------------------------------

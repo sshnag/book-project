@@ -32,8 +32,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
         ->name('dashboard');
 });
+Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show'); // ✅ Add this
+    Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
+});
+
 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
