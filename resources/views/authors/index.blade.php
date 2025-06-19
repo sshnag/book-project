@@ -31,4 +31,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $authors->links() }} <!-- Pagination links -->
 @endsection

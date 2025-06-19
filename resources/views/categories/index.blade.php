@@ -41,7 +41,11 @@
                         </form>
                     </td>
                 </tr>
+
             @endforeach
+
         </tbody>
     </table>
+{{ $categories->links()}} <!-- Pagination links -->
+
 @endsection

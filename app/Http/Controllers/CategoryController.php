@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
 
@@ -11,7 +11,7 @@ class CategoryController extends Controller
     {
         // Force fresh query without caching
         $categories = Category::query()
-            ->orderBy('id')
+            ->orderBy('name')
             ->get()
             ->map(function ($category) {
                 if (! is_object($category)) {
@@ -21,8 +21,9 @@ class CategoryController extends Controller
                 return $category;
             })
             ->filter();
-
+            $categories=Category::simplePaginate(5); //[pagination]
         return view('categories.index', compact('categories'));
+
     }
     public function create()
     {

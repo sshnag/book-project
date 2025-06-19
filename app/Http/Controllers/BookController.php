@@ -116,4 +116,5 @@ class BookController extends Controller
         }
         return response()->download($file, $book->title . '.pdf');
     }
+    
 }

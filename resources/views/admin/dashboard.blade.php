@@ -29,7 +29,7 @@
                             <td>{{ $book->category->name ?? 'N/A' }}</td>
                             <td>
                                 <a href="{{ route('admin.books.edit', $book->id) }}"
-                                   class="btn btn-sm btn-outline-dark">Edit</a>
+                                   class="btn btn-sm btn-ou">Edit</a>
                                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
                                       style="display:inline">
                                     @csrf
@@ -46,6 +46,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $books->links() }} <!-- Pagination links -->
         </div>
     </div>
 @stop
