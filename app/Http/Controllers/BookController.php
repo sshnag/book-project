@@ -52,15 +52,17 @@ class BookController extends Controller
             'file_path'    => 'required|file|mimes:pdf|max:10240',
             'cover_image'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048', //mimes to identify the type of the file
         ]);
-        $book = Book::create($validated);
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('covers', 'public');
+        $data = $request->validated(); // Use this instead of $validated
 
-        }
-        if ($request->hasFile('file_path')) {
-            $data['file_path'] = $request->file('file_path')->store('books', 'public');
-        }
-        $book->save();
+if ($request->hasFile('cover_image')) {
+    $data['cover_image'] = $request->file('cover_image')->store('covers', 'public');
+}
+
+if ($request->hasFile('file_path')) {
+    $data['file_path'] = $request->file('file_path')->store('books', 'public');
+}
+
+$book = Book::create($data); // Use $data here
         return redirect()->route('admin.books.index')->with('success', 'Book creates!');
     }
 
@@ -92,7 +94,7 @@ class BookController extends Controller
     }
     public function show(Book $book)
     {
-        return view('books.show', compact('books'))->with('', $book);
+        return view('books.show', compact('book'))->with('', $book);
     }
 
     public function destroy(Book $book)
@@ -101,7 +103,7 @@ class BookController extends Controller
         return redirect()->route('admin.books.index')->with('success', 'Book is archived');
     }
 
-    public function edit()
+    public function edit(Book $book)
     {
         $authors    = Author::all();
         $categories = Category::all();
@@ -116,5 +118,5 @@ class BookController extends Controller
         }
         return response()->download($file, $book->title . '.pdf');
     }
-    
+
 }

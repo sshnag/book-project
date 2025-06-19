@@ -3,7 +3,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -61,6 +64,24 @@
             "@php artisan test"
         ]
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "nnnick/chartjs",
+                "version": "v3.9.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/chartjs/Chart.js/releases/download/v3.9.1/chart.js-3.9.1.tgz",
+                    "type": "tar"
+                }
+            }
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": []
