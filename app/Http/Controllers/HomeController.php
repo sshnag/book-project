@@ -24,7 +24,10 @@ class HomeController extends Controller
      */
     public function index( Request $request )
     {
-        $books=Book::latest()->take(9)->get();
-        return view('home', compact('books') );
+       $books = Book::latest()->take(12)->get();
+    $featuredBooks = Book::inRandomOrder()->take(6)->get(); // or use a 'featured' flag
+    $popularBooks = Book::orderBy('download_count', 'desc')->take(6)->get(); // example based on views
+
+    return view('home', compact('books', 'featuredBooks', 'popularBooks'));
     }
 }

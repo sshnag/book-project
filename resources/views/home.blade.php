@@ -1,43 +1,100 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-gray-100 min-h-screen">
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold text-indigo-600">Book Blog</div>
-            <div class="space-x-4">
-                <a href="#" class="text-gray-600 hover:text-indigo-500">Home</a>
-                <a href="#contact" class="text-gray-600 hover:text-indigo-500">Contact Us</a>
-                {{-- <form action="{{ route('search') }}" method="GET" class="inline">
-                    <input type="text" name="query" placeholder="Search books..." class="border p-1 rounded">
-                    <button type="submit" class="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600">Search</button>
-                </form> --}}
-            </div>
-        </div>
-    </nav>
 
-    <!-- Book Cards -->
-    <div class="container mx-auto py-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @foreach($books as $book)
-                <div class="bg-white p-5 rounded-lg shadow hover:shadow-xl transition duration-300">
-                    <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->title }}" class="w-full h-48 object-cover rounded mb-4">
-                    <h3 class="text-lg font-bold">{{ $book->title }}</h3>
-                    <p class="text-sm text-gray-500 mb-2">By {{ $book->author->name }}</p>
-                    <p class="text-sm text-gray-600 line-clamp-3 mb-4">{{ $book->description }}</p>
-                    <a href="{{ route('admin.books.show', $book->id) }}" class="inline-block bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">View Details</a>
-                </div>
-            @endforeach
-        </div>
+<!-- Hero Carousel -->
+<div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{ asset('images/hero1.jpg') }}" class="d-block w-100" alt="Hero 1" style="height: 400px; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block">
+        <h2>Read. Learn. Grow.</h2>
+        <p>Explore a world of books curated just for you.</p>
+      </div>
     </div>
-
-    <!-- Contact Us -->
-    <div id="contact" class="bg-white py-10 shadow-inner">
-        <div class="container mx-auto text-center">
-            <h2 class="text-2xl font-semibold text-indigo-600 mb-4">Contact Us</h2>
-            <p class="text-gray-600">Email us at <a href="mailto:support@bookblog.com" class="text-indigo-500">support@bookblog.com</a> or call +959-123-456-789.</p>
-        </div>
+    <div class="carousel-item">
+      <img src="{{ asset('images/hero2.jpg') }}" class="d-block w-100" alt="Hero 2" style="height: 400px; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block">
+        <h2>Discover New Titles</h2>
+        <p>Handpicked selections from various genres.</p>
+      </div>
     </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
 </div>
+
+<!-- Search Bar -->
+{{-- <div class="container mb-4">
+  <form action="{{ route('search') }}" method="GET" class="d-flex justify-content-center">
+    <input type="text" name="query" class="form-control w-50 me-2" placeholder="Search for books...">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div> --}}
+
+<!-- Featured Books (Horizontal Scroll) -->
+<div class="container mb-5">
+  <h4 class="mb-3">Featured Books</h4>
+  <div class="d-flex overflow-auto pb-3">
+    @foreach($featuredBooks as $book)
+      <div class="card me-3" style="min-width: 200px;">
+        <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
+        <div class="card-body">
+          <h6 class="card-title">{{ $book->title }}</h6>
+          <a href="{{ route('admin.books.show', $book->id) }}" class="btn btn-sm btn-outline-primary mt-2">View</a>
+        </div>
+      </div>
+    @endforeach
+  </div>
+</div>
+
+<!-- Popular Books (Horizontal Scroll) -->
+<div class="container mb-5">
+  <h4 class="mb-3">Popular Books</h4>
+  <div class="d-flex overflow-auto pb-3">
+    @foreach($popularBooks as $book)
+      <div class="card me-3" style="min-width: 200px;">
+        <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
+        <div class="card-body">
+          <h6 class="card-title">{{ $book->title }}</h6>
+          <a href="{{ route('admin.books.show', $book->id) }}" class="btn btn-sm btn-outline-success mt-2">View</a>
+        </div>
+      </div>
+    @endforeach
+  </div>
+</div>
+
+<!-- Latest Books Grid -->
+<div class="container my-5">
+  <h3 class="text-center mb-4">Latest Books</h3>
+  <div class="row">
+    @foreach($books as $book)
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top" alt="{{ $book->title }}" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ $book->title }}</h5>
+            <p class="card-subtitle mb-2 text-muted">By {{ $book->author->name ?? 'Unknown' }}</p>
+            <p class="card-text">{{ Str::limit($book->description, 100) }}</p>
+            <a href="{{ route('admin.books.show', $book->id) }}" class="btn btn-primary mt-auto">View Details</a>
+          </div>
+        </div>
+      </div>
+    @endforeach
+  </div>
+</div>
+
+<!-- Contact Us -->
+<div id="contact" class="bg-light py-5">
+  <div class="container text-center">
+    <h4 class="mb-3">Contact Us</h4>
+    <p>Email: <a href="mailto:support@bookblog.com">support@bookblog.com</a></p>
+    <p>Phone: +959-123-456-789</p>
+  </div>
+</div>
+
 @endsection
