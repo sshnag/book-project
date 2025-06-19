@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Route::get('/book/download/{book}',[BookController::class,'download'])->middleware('auth')->name('books.download');
 
-Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Authentication routes
 Auth::routes();
@@ -34,7 +34,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 });
 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
-    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });

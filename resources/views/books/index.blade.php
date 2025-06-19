@@ -49,53 +49,62 @@
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#books-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('admin.books.index') }}",
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'title', name: 'title' },
-                    {
-                        data: 'author.name',
-                        name: 'author.name',
-                        render: function(data, type, row) {
-                            return data || 'N/A';
-                        }
-                    },
-                    {
-                        data: 'category.name',
-                        name: 'category.name',
-                        render: function(data, type, row) {
-                            return data || 'N/A';
-                        }
-                    },
-                    {
-                        data: 'published_at',
-                        name: 'published_at',
-                        render: function(data) {
-                            return data ? new Date(data).toLocaleDateString() : 'N/A';
-                        }
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center'
-                    }
-                ],
-                responsive: true,
-                order: [[0, 'desc']],
-                language: {
-                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
-                },
-                dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                     "<'row'<'col-sm-12'tr>>" +
-                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            });
-        });
+     $(document).ready(function() {
+    $('#books-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('admin.books.index') }}",
+            type: "GET",
+            data: function(d) {
+                // Add any additional parameters here
+            },
+            error: function(xhr, error, thrown) {
+                console.error('AJAX Error:', xhr.responseText);
+                $('#books-table').DataTable().clear().draw();
+                alert('Failed to load data. Check console for details.');
+            }
+        },
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'title', name: 'title' },
+            {
+                data: 'author_name',
+                name: 'author.name',
+                render: function(data) {
+                    return data || 'N/A';
+                }
+            },
+            {
+                data: 'category_name',
+                name: 'category.name',
+                render: function(data) {
+                    return data || 'N/A';
+                }
+            },
+            {
+                data: 'published_at',
+                name: 'published_at',
+                render: function(data) {
+                    return data || 'N/A';
+                }
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false
+            }
+        ],
+        order: [[0, 'asc']],
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
+            emptyTable: 'No books found',
+            error: 'Error loading data'
+        }
+    });
+});
+
     </script>
 @stop
 

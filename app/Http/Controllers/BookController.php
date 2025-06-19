@@ -7,29 +7,47 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
     public function index(Request $request)
-    {
-        if ($request->ajax()) {
-            return DataTables::of(Book::with(['author', 'category'])->select('books.*'))
-                ->addColumn('author.name', function ($book) {
-                    return $book->author->name ?? 'N/A';
-                })
-                ->addColumn('category.name', function ($book) {
-                    return $book->category->name ?? 'N/A';
-                })
-                ->addColumn('action', function ($book) {
-                    return view('books.partials.action', compact('book'))->render();
-                })
-                ->editColumn('published_at', function ($book) {
-                    return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
-                })
-                ->rawColumns(['action'])
-                ->toJson();
+{
+    if ($request->ajax()) {
+        try{
+        $books = Book::with(['author', 'category'])->select('books.*');
+
+        return DataTables::of($books)
+            ->addColumn('author.name', function ($book) {
+                return $book->author->name ?? 'N/A';
+            })
+            ->addColumn('category.name', function ($book) {
+                return $book->category->name ?? 'N/A';
+            })
+            ->addColumn('action', function ($book) {
+                return view('books.partials.action', compact('book'))->render();
+            })
+            ->editColumn('published_at', function ($book) {
+                return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
         }
-        return view('books.index');
+        catch (\Exception $e) {
+            Log::error('Error fetching books: ' . $e->getMessage());
+            return response()->json([
+                'draw'=>$request->input('draw'),
+                'recordsTotal'=>0,
+                'recordsFiltered'=>0,
+                'data'=>[],
+                'error'=>$e->getMessage()
+            ],500);
+
+    }
+}
+
+    return view('books.index');
+
     }
 
     public function create()
@@ -94,6 +112,7 @@ $book = Book::create($data); // Use $data here
     }
     public function show(Book $book)
     {
+        $book=Book::findOrFail($book->id);
         return view('books.show', compact('book'))->with('', $book);
     }
 

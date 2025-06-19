@@ -5,6 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+        protected $dates = ['published_at'];
+
+
+
     protected $fillable = [
         'title',
         'description',
