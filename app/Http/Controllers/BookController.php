@@ -8,9 +8,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Log;
-
 class BookController extends Controller
 {
+    public function dataTableLogic(Request $request)
+{
+    if ($request->ajax()) {
+        try{
+        $books = Book::with(['author', 'category'])->select('books.*');
+
+        return DataTables::of($books)
+            ->addColumn('author.name', function ($book) {
+                return $book->author->name ?? 'N/A';
+            })
+            ->addColumn('category.name', function ($book) {
+                return $book->category->name ?? 'N/A';
+            })
+            ->addColumn('action', function ($book) {
+                return view('books.partials.action', compact('book'))->render();
+            })
+            ->editColumn('published_at', function ($book) {
+                return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+        }
+        catch (\Exception $e) {
+            Log::error('Error fetching books: ' . $e->getMessage());
+            return response()->json([
+                'draw'=>$request->input('draw'),
+                'recordsTotal'=>0,
+                'recordsFiltered'=>0,
+                'data'=>[],
+                'error'=>$e->getMessage()
+            ],500);
+
+    }
+}
+
+
+    return view('books.index');
+
+    }
     public function index(Request $request)
 {
     if ($request->ajax()) {
@@ -46,6 +84,7 @@ class BookController extends Controller
     }
 }
 
+
     return view('books.index');
 
     }
@@ -58,31 +97,39 @@ class BookController extends Controller
 
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'description'  => 'required',
-            'author_id'    => 'required|exists:authors,id',
-            'category_id'  => 'required|exists:categories,id',
-            'published_at' => 'nullable|date',
-            'uploaded_at'  => 'nullable|date',
-            'file_path'    => 'required|file|mimes:pdf|max:10240',
-            'cover_image'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048', //mimes to identify the type of the file
-        ]);
-        $data = $request->validated(); // Use this instead of $validated
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title'        => 'required|string|max:255',
+        'description'  => 'required|string',
+        'author_id'    => 'required|exists:authors,id',
+        'category_id'  => 'required|exists:categories,id',
+        'published_at' => 'nullable|date',
+        'cover_image'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        'file_path'    => 'required|file|mimes:pdf|max:10240',
+    ]);
 
-if ($request->hasFile('cover_image')) {
-    $data['cover_image'] = $request->file('cover_image')->store('covers', 'public');
+    $imagePath = $request->hasFile('cover_image')
+        ? $request->file('cover_image')->store('covers', 'public')
+        : null;
+
+    $filePath = $request->file('file_path')->store('books', 'public');
+
+    $book = Book::create([
+        'title'        => $validated['title'],
+        'description'  => $validated['description'],
+        'author_id'    => $validated['author_id'],
+        'category_id'  => $validated['category_id'],
+        'published_at' => $validated['published_at'] ?? null,
+        'cover_image'  => $imagePath,
+        'file_path'    => $filePath,
+    ]);
+
+    // Debug the saved book
+return redirect()->route('admin.books.index')->with('success', 'Book added successfully!');
 }
 
-if ($request->hasFile('file_path')) {
-    $data['file_path'] = $request->file('file_path')->store('books', 'public');
-}
 
-$book = Book::create($data); // Use $data here
-        return redirect()->route('admin.books.index')->with('success', 'Book creates!');
-    }
 
     public function update(Request $request, Book $book)
     {
@@ -108,7 +155,7 @@ $book = Book::create($data); // Use $data here
 
         $book->update($validated);
 
-        return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
+        return redirect()->route('admin.books.create')->with('success', 'Book updated successfully!');
     }
     public function show(Book $book)
     {

@@ -6,9 +6,9 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
         @csrf @method('PUT')
-        @include('admin.books.form', ['book' => $book])
+        @include('books.show', ['book' => $book])
         <button type="submit" class="btn btn-success">Update</button>
     </form>
 @endsection

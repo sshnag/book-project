@@ -8,7 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use Illuminate\Support\Facades\Auth;
-
+use Yajra\DataTables\DataTables;
 // Route::get("/", function () {
 //     return view('');
 // });
@@ -23,7 +23,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function() {
-    Route::resource('books', BookController::class);
+    Route::resource('books', BookController::class, ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
 
     Route::resource('authors', AuthorController::class);
 
