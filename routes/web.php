@@ -17,7 +17,7 @@ use Yajra\DataTables\DataTables;
 
 // Route::get('/book/download/{book}',[BookController::class,'download'])->middleware('auth')->name('books.download');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [PublicController::class, 'index'])->name('home');
 
 // Authentication routes
 Auth::routes();
@@ -34,9 +34,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 });
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show'); // ✅ Add this
+    Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
+
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
 
 

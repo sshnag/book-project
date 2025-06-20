@@ -12,7 +12,7 @@
             <h3 class="card-title">Recent Books</h3>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Title</th>

@@ -39,9 +39,9 @@
 <!-- Featured Books (Horizontal Scroll) -->
 <div class="container mb-5">
   <h4 class="mb-3">Featured Books</h4>
-  <div class="d-flex overflow-auto pb-3">
+  <div class="d-flex overflow-auto pb-3 data-mdb-animation-delay">
     @foreach($featuredBooks as $book)
-      <div class="card me-3" style="min-width: 200px;">
+<div class="card me-3 book-card fade-in" style="min-width: 200px;">
         <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
         <div class="card-body">
           <h6 class="card-title">{{ $book->title }}</h6>
@@ -57,7 +57,7 @@
   <h4 class="mb-3">Popular Books</h4>
   <div class="d-flex overflow-auto pb-3">
     @foreach($popularBooks as $book)
-      <div class="card me-3" style="min-width: 200px;">
+<div class="card me-3 book-card fade-in" style="min-width: 200px;">
         <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
         <div class="card-body">
           <h6 class="card-title">{{ $book->title }}</h6>
@@ -74,13 +74,13 @@
   <div class="row">
     @foreach($books as $book)
       <div class="col-md-4 mb-4">
-        <div class="card h-150 shadow-sm">
+        <div class="card h-150 shadow-sm" id="book">
           <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top" alt="{{ $book->title }}" style="height: 300px; object-fit: cover;">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ $book->title }}</h5>
             <p class="card-subtitle mb-2 text-muted">By {{ $book->author->name ?? 'Unknown' }}</p>
             <p class="card-text">{{ Str::limit($book->description, 100) }}</p>
-            <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary mt-auto">View Details</a>
+            <a href="{{ route('books.show', $book->id) }}" class="btn btn-outline-dark mt-auto">View Details</a>
           </div>
         </div>
       </div>
@@ -89,4 +89,6 @@
 </div>
 
 @endsection
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/book.css') }}">
+@endpush

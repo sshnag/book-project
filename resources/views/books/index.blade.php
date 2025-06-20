@@ -12,7 +12,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="books-table" class="table table-bordered table-striped">
+            <table id="books-table" class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>

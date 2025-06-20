@@ -20,10 +20,14 @@
             <hr>
             <h5>Description</h5>
             <p>{{ $book->description }}</p>
-
-            <a href="{{ route('user.books.download', $book->id) }}" class="btn btn-outline-dark mt-3">
+             @auth
+                 <a href="{{ route('user.books.download', $book->id) }}" class="btn btn-outline-dark mt-3">
                 <i class="fas fa-download"></i> Download PDF
             </a>
+            @else
+            <p class="text-danger">Please <a href="{{ route('login') }}">log in</a> to download this book.</p>
+             @endauth
+
             <a href="{{ route('home') }}" class="btn text-decoration-none mt-3">← Back to Home</a>
         </div>
     </div>

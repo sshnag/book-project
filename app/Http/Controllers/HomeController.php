@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Book;
@@ -22,12 +21,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index( Request $request )
+    public function index(Request $request)
     {
-       $books = Book::latest()->take(12)->get();
-    $featuredBooks = Book::inRandomOrder()->take(6)->get(); // or use a 'featured' flag
-    $popularBooks = Book::orderBy('download_count', 'desc')->take(6)->get(); // example based on views
+        $books         = Book::latest()->take(12)->get();
+        $featuredBooks = Book::inRandomOrder()->take(6)->get();                   // or use a 'featured' flag
+        $popularBooks  = Book::orderBy('download_count', 'desc')->take(6)->get(); // example based on views
 
-    return view('home', compact('books', 'featuredBooks', 'popularBooks'));
+        return view('home', compact('books', 'featuredBooks', 'popularBooks'));
     }
 }

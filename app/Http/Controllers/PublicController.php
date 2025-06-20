@@ -1,27 +1,24 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Http\Request;
+
 class PublicController extends Controller
 {
-   public function books()
-{
-    $books = Book::whereNull('deleted_at')->paginate(8); // Adjust number per page
-    return view('public.books.index', compact('books'));
-}
 
     public function index()
     {
-        return view('welcome'); // or your custom public view
-    }
+        $books         = Book::with(['author'])->latest()->take(6)->get();        // latest 6 books
+        $featuredBooks = Book::inRandomOrder()->take(5)->get();                   // random featured
+        $popularBooks  = Book::orderBy('download_count', 'desc')->take(6)->get(); // example based on views
 
+        return view('home', compact('books', 'featuredBooks', 'popularBooks'));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
-
 
     /**
      * Store a newly created resource in storage.

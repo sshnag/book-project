@@ -14,7 +14,7 @@ return [
     |
     */
 
-'title' => 'BlogProject Admin',
+'title' => 'BookStore Admin',
     'title_prefix' => '',
     'title_postfix' => '',
 
