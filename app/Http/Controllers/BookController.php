@@ -186,7 +186,7 @@ return redirect()->route('admin.books.index')->with('success', 'Book added succe
     }
     public function download(Book $book)
     {
-        $book->increment('down_count');
+        $book->increment('download_count');
         $file = storage_path('app/public/' . $book->file_path);
         if (! file_exists($file)) {
             abort(404, 'File not Found!');

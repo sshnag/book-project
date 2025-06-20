@@ -27,7 +27,7 @@
             </div>
 
             <hr>
-            <p><strong>Downloaded:</strong> {{ $book->down_count ?? 0 }} times</p>
+            <p><strong>Downloaded:</strong> {{ $book->download_count ?? 0 }} times</p>
         </div>
     </div>
 </div>

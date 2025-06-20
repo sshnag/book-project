@@ -37,6 +37,8 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show'); // ✅ Add this
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
+Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+
 
 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
