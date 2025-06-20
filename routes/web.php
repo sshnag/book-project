@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 // Route::get("/", function () {
@@ -28,6 +29,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('authors', AuthorController::class);
 
     Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class);
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
         ->name('dashboard');

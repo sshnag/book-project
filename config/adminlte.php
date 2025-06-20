@@ -429,7 +429,7 @@ return [
     ],
     [
         'text' => 'Users',
-        'url'  => '/admin/users',
+        'route'=>'admin.users.index',
         'icon' => 'fas fa-user'
     ],
 ],
