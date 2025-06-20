@@ -8,15 +8,15 @@
     <div class="carousel-item active">
       <img src="{{ asset('images/hero1.jpg') }}" class="d-block w-100" alt="Hero 1" style="height: 400px; object-fit: cover;">
       <div class="carousel-caption d-none d-md-block">
-        <h2 class="text-black">Read. Learn. Grow.</h2>
-        <p class="text-black">Explore a world of books curated just for you.</p>
+        <h2 class="text">Read. Learn. Grow.</h2>
+        <p class="text">Explore a world of books curated just for you.</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{ asset('images/hero2.jpg') }}" class="d-block w-100" alt="Hero 2" style="height: 400px; object-fit: cover;">
       <div class="carousel-caption d-none d-md-block">
-        <h2 class="text-black">Discover New Titles</h2>
-        <p class="text-black">Handpicked selections from various genres.</p>
+        <h2 class="text">Discover New Titles</h2>
+        <p class="text">Handpicked selections from various genres.</p>
       </div>
     </div>
   </div>

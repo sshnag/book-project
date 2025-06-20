@@ -33,7 +33,6 @@
                 <tr>
                     <td>{{ $cat->name ?? 'N/A' }}</td>
                     <td>
-                        <a href="{{ route('admin.categories.edit', $cat->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('admin.categories.destroy', $cat->id) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')

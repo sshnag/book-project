@@ -14,7 +14,7 @@
 </head>
 
 <body class="sidebar-mini layout-fixed">
-c
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
@@ -42,7 +42,7 @@ c
                     @auth
                         @if (Auth::user()->hasRole('admin'))
                             <div class="text-end mb-4 me-4">
-                                <a href="{{ route('admin.admin.dashboard') }}" class="btn btn-warning">
+                                <a href="{{ route('admin.dashboard') }}" class="btn btn-warning">
                                     Go to Admin Dashboard
                                 </a>
                             </div>
@@ -93,7 +93,9 @@ c
     <footer class="bg-white text-center py-4 border-top mt-5">
         <div class="container">
             <p class="mb-1">© {{ date('Y') }} BookBlog. All rights reserved.</p>
-            <small>Made with ❤️ for book lovers.</small>
+
+
+
         </div>
     </footer>
 

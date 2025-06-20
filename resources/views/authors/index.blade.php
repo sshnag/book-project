@@ -22,7 +22,6 @@
                 <tr>
                     <td>{{ $author->name }}</td>
                     <td>
-                        <a href="{{ route('admin.authors.edit', $author->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST" style="display:inline">
                             @csrf @method('DELETE')<button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>

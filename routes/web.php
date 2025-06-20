@@ -1,15 +1,14 @@
 <?php
-use App\Http\Controllers\PublicController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Route;
+
 // Route::get("/", function () {
 //     return view('');
 // });
@@ -23,7 +22,7 @@ Route::get('/', [PublicController::class, 'index'])->name('home');
 // Authentication routes
 Auth::routes();
 
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function() {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('books', BookController::class, ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
 
     Route::resource('authors', AuthorController::class);
@@ -36,13 +35,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 });
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
     Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
 
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
-
-
 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
