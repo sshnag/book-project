@@ -23,7 +23,8 @@ Route::get('/', [PublicController::class, 'index'])->name('home');
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('books', BookController::class, ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('books', BookController::class, ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy','adminShow']]);
+    Route::get('/books/{book}', [BookController::class, 'adminShow'])->name('books.show');
 
     Route::resource('authors', AuthorController::class);
 
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-    Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+    Route::get('/books/{book}', [BookController::class, 'userShow'])->name('books.show');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
 

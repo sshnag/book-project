@@ -22,7 +22,6 @@
         <tbody>
             @foreach ($users as $user)
                 @php
-                    // Debugging line - remove after fixing
                     if (!is_object($user)) {
                         logger()->error('Non-object in users loop', ['item' => $user]);
                         continue;

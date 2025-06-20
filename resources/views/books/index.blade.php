@@ -6,7 +6,7 @@
     <h1>Books Management</h1>
     <br>
     <a href="{{ route('admin.books.create') }}" class="btn btn-outline-dark">
-        
+
         <i class="fas fa-plus"></i> Add New Book
     </a>
 @endsection
@@ -32,6 +32,7 @@
             <td>{{ $book->category->name ?? 'N/A' }}</td>
             <td>{{ $book->published_at ? $book->published_at : 'N/A' }}</td>
             <td>
+                <a href="{{ route('admin.books.show', $book->id) }}" class="btn btn-sm btn-info">View</a>
                 <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-sm btn-primary">Edit</a>
                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display:inline;">
                     @csrf @method('DELETE')
@@ -42,5 +43,6 @@
         @endforeach
     </tbody>
 </table>
+<br>
 {{ $books->links() }} <!-- Pagination links -->
 @endsection

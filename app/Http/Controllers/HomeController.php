@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class HomeController extends Controller
 {
@@ -23,7 +26,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $books         = Book::latest()->take(12)->get();
+        $books         = Book::latest('created_at')->paginate(6);
+
         $featuredBooks = Book::inRandomOrder()->take(6)->get();                   // or use a 'featured' flag
         $popularBooks  = Book::orderBy('download_count', 'desc')->take(6)->get(); // example based on views
 
