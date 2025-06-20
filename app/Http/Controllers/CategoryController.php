@@ -9,7 +9,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        
+
         // Force fresh query without caching
         $categories = Category::query()
             ->orderBy('name')
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Category is deleted!');
+        return redirect()->route('admin.categories.index')->with('success', 'Category is archieved!');
     }
 
 }

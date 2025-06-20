@@ -46,7 +46,7 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
-        return redirect()->route('admin.authors.index')->with('success', 'Author is deleted!');
+        return redirect()->route('admin.authors.index')->with('success', 'Author is Archieved!');
     }
 
 }

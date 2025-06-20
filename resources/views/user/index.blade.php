@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Categories')
+@section('title', 'Users List')
 @section('content_header')
     <h1>Users List</h1>
 @endsection
