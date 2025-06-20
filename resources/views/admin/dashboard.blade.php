@@ -11,7 +11,7 @@
 @section('content')
 <div class="row">
   <div class="col-md-6">
-    <canvas id="barChart"></canvas>
+    <canvas id="downloadChart"></canvas>
   </div>
   <div class="col-md-6">
     <canvas id="pieChart"></canvas>
@@ -19,20 +19,33 @@
 </div>
 
 <script>
-  const barCtx = document.getElementById('barChart').getContext('2d');
   const pieCtx = document.getElementById('pieChart').getContext('2d');
 
-  new Chart(barCtx, {
-    type: 'bar',
-    data: {
-      labels: ['Books', 'Authors', 'Categories'],
-      datasets: [{
-        label: 'Counts',
-        data: [{{ $bookCount }}, {{ $authorCount }}, {{ $categoryCount }}],
-        backgroundColor: ['#3498db', '#e67e22', '#2ecc71']
-      }]
+   const downloadCtx = document.getElementById('downloadChart').getContext('2d');
+    new Chart(downloadCtx, {
+      type: 'bar',
+      data: {
+        labels: {!! json_encode($labels) !!},
+        datasets: [{
+          label: 'Downloads per Category',
+          data: {!! json_encode($downloads) !!},
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+        options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          precision: 0 // 👈 disables decimals
+        }
+      }
     }
-  });
+  }
+});
 
   new Chart(pieCtx, {
     type: 'pie',
@@ -40,7 +53,7 @@
       labels: ['Books', 'Authors', 'Categories'],
       datasets: [{
         data: [{{ $bookCount }}, {{ $authorCount }}, {{ $categoryCount }}],
-        backgroundColor: ['#3498db', '#e67e22', '#2ecc71']
+        backgroundColor: ['#17BECF', '#FFC20A', '#00668E']
       }]
     }
   });
@@ -85,7 +98,14 @@
                     @endforelse
                 </tbody>
             </table>
+            <br>
             {{ $books->links() }} <!-- Pagination links -->
         </div>
     </div>
 @stop
+
+@push('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.css">
+        <link rel="stylesheet" href="{{ asset('css/book.css') }}">
+
+@endpush('css')

@@ -1,3 +1,10 @@
+html, body, .wrapper {
+    height: 100%;
+}
+
+.main-sidebar {
+    min-height: 100vh !important;
+}
 
 body {
     background: #f0f2f5;

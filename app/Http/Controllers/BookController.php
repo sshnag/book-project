@@ -12,84 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
-    public function dataTableLogic(Request $request)
-{
-    if ($request->ajax()) {
-        try{
-        $books = Book::with(['author', 'category'])->select('books.*');
 
-        return DataTables::of($books)
-            ->addColumn('author.name', function ($book) {
-                return $book->author->name ?? 'N/A';
-            })
-            ->addColumn('category.name', function ($book) {
-                return $book->category->name ?? 'N/A';
-            })
-            ->addColumn('action', function ($book) {
-                return view('books.partials.action', compact('book'))->render();
-            })
-            ->editColumn('published_at', function ($book) {
-                return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
-            })
-            ->rawColumns(['action'])
-            ->toJson();
-        }
-        catch (\Exception $e) {
-            Log::error('Error fetching books: ' . $e->getMessage());
-            return response()->json([
-                'draw'=>$request->input('draw'),
-                'recordsTotal'=>0,
-                'recordsFiltered'=>0,
-                'data'=>[],
-                'error'=>$e->getMessage()
-            ],500);
-
+     public function index()
+    {
+        $books = Book::with(['author', 'category'])->latest()->simplePaginate(perPage: 5); // Basic pagination
+        return view('books.index', compact('books'));
     }
-}
 
 
-    return view('books.index');
-
-    }
-    public function index(Request $request)
-{
-    if ($request->ajax()) {
-        try{
-        $books = Book::with(['author', 'category'])->select('books.*');
-
-        return DataTables::of($books)
-            ->addColumn('author.name', function ($book) {
-                return $book->author->name ?? 'N/A';
-            })
-            ->addColumn('category.name', function ($book) {
-                return $book->category->name ?? 'N/A';
-            })
-            ->addColumn('action', function ($book) {
-                return view('books.partials.action', compact('book'))->render();
-            })
-            ->editColumn('published_at', function ($book) {
-                return $book->published_at ? $book->published_at->format('Y-m-d') : 'N/A';
-            })
-            ->rawColumns(['action'])
-            ->toJson();
-        }
-        catch (\Exception $e) {
-            Log::error('Error fetching books: ' . $e->getMessage());
-            return response()->json([
-                'draw'=>$request->input('draw'),
-                'recordsTotal'=>0,
-                'recordsFiltered'=>0,
-                'data'=>[],
-                'error'=>$e->getMessage()
-            ],500);
-
-    }
-}
-
-
-    return view('books.index');
-
-    }
 
     public function create()
     {

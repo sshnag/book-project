@@ -151,6 +151,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
+    'layout' => 'fixed',
 
     'layout_topnav' => null,
     'layout_boxed' => null,
