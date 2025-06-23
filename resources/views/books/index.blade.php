@@ -3,46 +3,64 @@
 @section('title', 'Books Management')
 
 @section('content_header')
-    <h1>Books Management</h1>
-    <br>
-    <a href="{{ route('admin.books.create') }}" class="btn btn-outline-dark">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <i class="fas fa-plus"></i> Add New Book
-    </a>
+        <a href="{{ route('admin.books.create') }}" class="btn btn-outline-warning font-weight-bold" style="border-radius: 50px;">
+            <i class="fas fa-plus"></i> Add New Book
+        </a>
+    </div>
+
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <table id="book-table" class="table table-bordered tbale-hover">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Published At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($books as $book)
-        <tr>
-            <td>{{ $book->title }}</td>
-            <td>{{ $book->author->name ?? 'N/A' }}</td>
-            <td>{{ $book->category->name ?? 'N/A' }}</td>
-            <td>{{ $book->published_at ? $book->published_at : 'N/A' }}</td>
-            <td>
-                <a href="{{ route('admin.books.show', $book->id) }}" class="btn btn-sm btn-info">View</a>
-                <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display:inline;">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-<br>
-{{ $books->links() }} <!-- Pagination links -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table id="book-table" class="table table-bordered table-hover mb-0">
+                <thead class="thead-light text-uppercase text-secondary small">
+                    <tr>
+                        <th class="font-weight-bold" style="width: 25%;">Title</th>
+                        <th class="font-weight-bold" style="width: 20%;">Author</th>
+                        <th class="font-weight-bold" style="width: 20%;">Category</th>
+                        <th class="font-weight-bold" style="width: 20%;">Published At</th>
+                        <th class="font-weight-bold text-center" style="width: 15%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($books as $book)
+                        <tr class="align-middle">
+                            <td class="pl-4 font-weight-semibold">{{ $book->title }}</td>
+                            <td>{{ $book->author->name ?? 'N/A' }}</td>
+                            <td>{{ $book->category->name ?? 'N/A' }}</td>
+                            <td>{{ $book->published_at ? \Carbon\Carbon::parse($book->published_at)->format('M d, Y') : 'N/A' }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('admin.books.show', $book->id) }}" class="btn btn-sm btn-info" title="View Book">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-sm btn-primary" title="Edit Book">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure to delete this book?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger" title="Delete Book">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">No books found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-end">
+            {{ $books->links() }}
+        </div>
+    </div>
+
+
+
 @endsection

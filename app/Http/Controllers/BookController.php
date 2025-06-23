@@ -5,7 +5,6 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -93,17 +92,17 @@ class BookController extends Controller
         return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
     }
 
-   public function adminShow(Book $book)
-{
-    $book = Book::with(['author', 'category'])->findOrFail($book->id);
-    return view('books.show', compact('book'));
-}
+    public function adminShow(Book $book)
+    {
+        $book = Book::with(['author', 'category'])->findOrFail($book->id);
+        return view('books.show', compact('book'));
+    }
 
-public function userShow(Book $book)
-{
-    $book = Book::with(['author', 'category'])->findOrFail($book->id);
-    return view('user.show', compact('book'));
-}
+    public function userShow(Book $book)
+    {
+        $book = Book::with(['author', 'category'])->findOrFail($book->id);
+        return view('user.show', compact('book'));
+    }
 
     public function destroy(Book $book)
     {
@@ -126,5 +125,19 @@ public function userShow(Book $book)
         }
         return response()->download($file, $book->title . '.pdf');
     }
+
+   public function search(Request $request)
+{
+    $categories = Category::all();
+
+    $books = Book::with('author', 'category')
+        ->when($request->title, fn($q) => $q->where('title', 'LIKE', '%' . $request->title . '%'))
+        ->when($request->author, fn($q) => $q->whereHas('author', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->author . '%')))
+        ->when($request->category, fn($q) => $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->category . '%')))
+        ->when($request->description, fn($q) => $q->where('description', 'LIKE', '%' . $request->description . '%'))
+        ->simplePaginate(5);
+
+    return view('search', compact('books','categories'));
+}
 
 }

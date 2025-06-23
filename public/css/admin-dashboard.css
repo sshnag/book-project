@@ -1,0 +1,179 @@
+/* admin-dashboard.css */
+
+/* General Body & Typography */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc; /* light gray background */
+    color: #1f2937; /* dark slate */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h5 {
+    color: #111827; /* very dark slate */
+}
+
+h1.fw-bold {
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+h5.fw-semibold, h5.fw-bold {
+    font-weight: 600;
+}
+
+/* Cards styling */
+.card {
+    background-color: #fff;
+    border-radius: 0.5rem; /* round corners */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.5rem 1.75rem;
+}
+
+/* Card Titles */
+.card-title {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+
+/* Chart canvas - fixes any overflow and consistent sizing */
+canvas {
+    display: block;
+    width: 100% !important;
+    height: 350px !important;
+}
+
+/* Table Styling */
+table.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9fafb;
+}
+
+.table thead th {
+    vertical-align: middle;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 0.75rem 1rem;
+    background-color: #f3f4f6;
+}
+
+.table tbody td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    border-top: 1px solid #e5e7eb;
+    color: #374151;
+}
+
+/* Text muted for empty state */
+.text-muted {
+    color: #6b7280 !important;
+}
+
+/* Button Styles */
+.btn {
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Outline primary button */
+.btn-outline-primary {
+    color: #2563eb;
+    border: 1.5px solid #2563eb;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    color: #fff;
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+/* Outline danger button */
+.btn-outline-danger {
+    color: #dc2626;
+    border: 1.5px solid #dc2626;
+    background-color: transparent;
+}
+
+.btn-outline-danger:hover,
+.btn-outline-danger:focus {
+    color: #fff;
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+/* Buttons small size */
+.btn-sm {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Form inline for delete form */
+form.d-inline {
+    display: inline;
+}
+
+/* Pagination Container */
+.card-footer {
+    padding: 1rem 1.5rem;
+    background-color: #fff;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Pagination links (inherit from adminlte if any, but improve contrast) */
+.pagination {
+    justify-content: flex-end;
+}
+
+.pagination li a,
+.pagination li span {
+    color: #2563eb;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+}
+
+.pagination li a:hover {
+    background-color: #2563eb;
+    color: #fff;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767.98px) {
+    h1.fw-bold {
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 1rem 1rem;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}

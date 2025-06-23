@@ -2,19 +2,18 @@
 <html lang="en">
 
 <head>
-    @stack('styles')
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title', 'Book Project')</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Styles and scripts -->
+    @stack('styles')
+    <link href="{{ asset('css/nav.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="sidebar-mini layout-fixed">
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
@@ -28,39 +27,35 @@
                 <!-- Left Side -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
 
-                {{-- <!-- Search -->
-                <form action="{{ route('search') }}" method="GET" class="d-flex me-3">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search books..." aria-label="Search">
+                {{-- Uncomment to enable search
+                <form action="{{ route('search') }}" method="GET" class="d-flex me-3" role="search" autocomplete="off">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search books..." aria-label="Search" />
                     <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form> --}}
+                </form>
+                --}}
 
                 <!-- Right Side -->
                 <ul class="navbar-nav">
                     @auth
                         @if (Auth::user()->hasRole('admin'))
-                            <div class="text-end mb-4 me-4">
+                            <li class="nav-item me-4 d-flex align-items-center">
                                 <a href="{{ route('admin.dashboard') }}" class="btn btn-warning">
                                     Go to Admin Dashboard
                                 </a>
-                            </div>
+                            </li>
                         @endif
                     @endauth
 
                     @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Register</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </a>
@@ -70,13 +65,8 @@
                                         @csrf
                                         <button type="submit" class="dropdown-item">Logout</button>
                                     </form>
-                                    </a>
                                 </li>
                             </ul>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
                         </li>
                     @endguest
                 </ul>
@@ -93,9 +83,6 @@
     <footer class="bg-white text-center py-4 border-top mt-5">
         <div class="container">
             <p class="mb-1">© {{ date('Y') }} BookBlog. All rights reserved.</p>
-
-
-
         </div>
     </footer>
 

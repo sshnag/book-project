@@ -1,118 +1,186 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Hero Carousel -->
-    <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('images/hero1.jpg') }}" class="d-block w-100" alt="Hero 1"
-                    style="height: 400px; object-fit: cover;">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="text">Read. Learn. Grow.</h2>
-                    <p class="text">Explore a world of books curated just for you.</p>
-                </div>
+
+    <!-- Hero Section -->
+    <div class="main-banner hero-bg position-relative">
+        <section
+            class="hero-section d-flex flex-column flex-lg-row align-items-center justify-content-between mb-5 px-3 px-lg-5"
+            style="min-height: 450px;">
+            <div class="hero-text flex-grow-1 pe-lg-5 text-center text-lg-start">
+                <h1 class="hero-title mb-3"
+                    style="font-weight: 700; font-family: 'Merriweather', serif; font-size: 2.75rem; line-height: 1.2; color: white;">
+                    Biggest <span class="text-black">bookstore</span>
+                </h1>
+                <p class="hero-subtitle mb-4"
+                    style="font-family: 'Poppins', sans-serif; font-weight: 400; color: #555; font-size: 1.125rem;">
+                    Discover endless stories and lay out your imagination
+                </p>
+
+
+                <!-- Search Bar -->
+                <form action="{{ route('search') }}" method="GET" role="search"
+                    class="hero-search-form d-flex mx-auto mx-lg-0" style="max-width: 480px;">
+                    <input type="search" name="query" class="form-control hero-search-input shadow-sm"
+                        placeholder="Search books by title, author, or category..." aria-label="Search books"
+                        value="{{ request('query') ?? '' }}" autocomplete="off" required
+                        style="border-radius: 0.25rem 0 0 0.25rem; border: 1px solid #ddd;">
+                    <button type="submit" class="btn btn-outline-dark px-4"
+                        style="border-radius: 0 0.25rem 0.25rem 0; font-weight: 600;">
+                        Search
+                    </button>
+                </form>
             </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/hero2.jpg') }}" class="d-block w-100" alt="Hero 2"
-                    style="height: 400px; object-fit: cover;">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="text">Discover New Titles</h2>
-                    <p class="text">Handpicked selections from various genres.</p>
-                </div>
+
+            <div class="hero-image-wrap mt-4 mt-lg-0 text-center text-lg-end flex-shrink-0" style="max-width: 500px;">
+                <img src="{{ asset('images/hero3.jpeg') }}" alt="Stack of colorful books"
+                    class="hero-image " style="max-width: 100%; height: auto"
+                    />
             </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon-black"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon-black"></span>
-        </button>
+        </section>
     </div>
 
-    <!-- Search Bar -->
-    {{-- <div class="container mb-4">
-  <form action="{{ route('search') }}" method="GET" class="d-flex justify-content-center">
-    <input type="text" name="query" class="form-control w-50 me-2" placeholder="Search for books...">
-    <button type="submit" class="btn btn-primary">Search</button>
-  </form>
-</div> --}}
+<div class="container my-5">
+    <h3 class="text-center mb-4  animate-slide">
+      <strong> Top Categories</strong></h3>
+    <div class="row g-3">
+        @foreach ($featuredCategories as $category)
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="#"
+                   class="d-block text-decoration-none category-card p-3 rounded-4 shadow-sm text-center h-100 position-relative overflow-hidden"
+                   style="background: linear-gradient(135deg, #ffc0cb, #ff69b4); transition: transform 0.3s ease;">
+                    <div class="icon-wrapper mb-2">
+                        <i class="bi bi-book" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <span class="text-white fw-semibold d-block" style="font-size: 0.95rem;">
+                        {{ $category->name }}
+                    </span>
+                    <div class="hover-overlay position-absolute top-0 start-0 w-100 h-100"
+                         style="background: rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.3s;"></div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+</div>
 
-    <!-- Featured Books (Horizontal Scroll) -->
-    <div class="container mb-5">
-        <h4 class="mb-3">Featured Books</h4>
-        <div class="d-flex overflow-auto pb-3 data-mdb-animation-delay">
+    <!-- Featured Books -->
+    <div class="container mb-5" id="featured">
+        <h2 class="section-title animate-slide">Featured Books</h2>
+        <div class="d-flex overflow-x-auto gap-3 pb-3 snap-x" role="list">
             @foreach ($featuredBooks as $book)
-                <div class="card me-3 book-card fade-in" style="min-width: 200px;">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top"
-                        style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
+                <div role="listitem" class="card snap-center border-0 shadow-sm transition-transform hover-scale"
+                    style="min-width: 260px;">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top rounded-top"
+                        alt="{{ $book->title }}">
                     <div class="card-body">
-                        <h6 class="card-title">{{ $book->title }}</h6>
-                        <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-outline-primary mt-2">View</a>
+                        <h5 class="card-title pink-text">{{ $book->title }}</h5>
+                        <p class="text-muted mb-2 small">By {{ $book->author->name ?? 'Unknown' }}</p>
+                        <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-pink w-100"
+                            aria-label="View details of {{ $book->title }}">View Details</a>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 
-    <!-- Popular Books (Horizontal Scroll) -->
-    <div class="container mb-5">
-        <h4 class="mb-3">Popular Books</h4>
-        <div class="d-flex overflow-auto pb-3">
+    <!-- Popular Books -->
+    <div class="container mb-5" id="popular">
+        <h2 class="section-title animate-slide">Popular Books</h2>
+        <div class="d-flex overflow-x-auto gap-3 pb-3 snap-x" role="list">
             @foreach ($popularBooks as $book)
-                <div class="card me-3 book-card fade-in" style="min-width: 200px;">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top"
-                        style="height: 200px; object-fit: cover;" alt="{{ $book->title }}">
+                <div role="listitem" class="card snap-center border-0 shadow-sm transition-transform hover-scale"
+                    style="min-width: 260px;">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top rounded-top"
+                        alt="{{ $book->title }}">
                     <div class="card-body">
-                        <h6 class="card-title">{{ $book->title }}</h6>
-                        <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-outline-success mt-2">View</a>
+                        <h5 class="card-title pink-text">{{ $book->title }}</h5>
+                        <p class="text-muted mb-2 small">By {{ $book->author->name ?? 'Unknown' }}</p>
+                        <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-pink-alt w-100"
+                            aria-label="View details of {{ $book->title }}">View Details</a>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 
-    <!-- Latest Books Grid -->
+    <!-- Latest Books -->
     <div class="container my-5">
-        <h3 class="text-center mb-4">Latest Books</h3>
-        <div class="row">
+        <h2 class="text-center section-title animate-slide">Latest Books</h2>
+        <div class="row g-4">
             @foreach ($books as $book)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-150 shadow-sm" id="book">
+                <div class="col-md-4 fade-in">
+                    <div class="card h-100 shadow-sm position-relative transition-transform hover-scale">
+                        <div class="book-badge">New</div>
                         <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top"
-                            alt="{{ $book->title }}" style="height: 300px; object-fit: cover;">
+                            alt="{{ $book->title }}">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $book->title }}</h5>
-                            <p class="card-subtitle mb-2 text-muted">By {{ $book->author->name ?? 'Unknown' }}</p>
-                            <p class="card-text">{{ Str::limit($book->description, 100) }}</p>
-                            <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-outline-dark mt-auto">View
-                                Details</a>
+                            <h5 class="card-title pink-text">{{ $book->title }}</h5>
+                            <p class="text-muted mb-1">By {{ $book->author->name ?? 'Unknown' }}</p>
+                            <p class="card-text small">{{ Str::limit($book->description, 100) }}</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="badge bg-pink text-light">⭐ {{ rand(40, 50) / 10 }}</span>
+                                <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-outline-pink btn-sm"
+                                    aria-label="View details of {{ $book->title }}">View</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-
     </div>
+
+    <!-- Related Books -->
     @if (isset($relatedBooks) && $relatedBooks->count())
-        <hr>
-        <h4 class="mt-5">Related Books</h4>
-        <div class="row">
-            @foreach ($relatedBooks as $related)
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="{{ asset('storage/' . $related->cover_image) }}" class="card-img-top"
-                            alt="{{ $related->title }}" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h6 class="card-title">{{ $related->title }}</h6>
-                            <a href="{{ route('user.books.userShow', $related->id) }}"
-                                class="btn btn-sm btn-outline-primary mt-2">View</a>
+        <div class="container my-5">
+            <hr class="my-5 border-pink">
+            <h2 class="section-title animate-slide">📚 Related Books</h2>
+            <div class="row g-4">
+                @foreach ($relatedBooks as $related)
+                    <div class="col-md-3 fade-in">
+                        <div class="card h-100 shadow-sm transition-transform hover-scale">
+                            <img src="{{ asset('storage/' . $related->cover_image) }}" class="card-img-top"
+                                alt="{{ $related->title }}">
+                            <div class="card-body">
+                                <h6 class="card-title pink-text">{{ $related->title }}</h6>
+                                <p class="text-muted small mb-2">By {{ $related->author->name ?? 'Unknown' }}</p>
+                                <a href="{{ route('user.books.userShow', $related->id) }}"
+                                    class="btn btn-sm btn-outline-pink w-100"
+                                    aria-label="View details of {{ $related->title }}">View Details</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     @endif
 @endsection
+
 @push('styles')
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/book.css') }}">
+@endpush
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add delay to fade-in animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Add hover effect to cards if any .book-card-hover exist
+            const cards = document.querySelectorAll('.book-card-hover');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.zIndex = '10';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.zIndex = '1';
+                });
+            });
+        });
+    </script>
 @endpush

@@ -1,14 +1,24 @@
-html, body, .wrapper {
-    height: 100%;
-}
-
-.main-sidebar {
-    min-height: 100vh !important;
-}
-
+/* The entire CSS content you provided goes here */
 body {
-    background: #f0f2f5;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafa;
+    font-family: 'Poppins', sans-serif;
+}
+
+.card {
+    background: #ffffff;
+}
+
+.form-control:focus {
+    border-color: #FC77B1;
+    box-shadow: 0 0 8px rgba(244, 90, 41, 0.5);
+}
+
+.btn-primary:hover {
+    background-color: #FC77B1 !important;
+}
+
+a.text-decoration-none:hover {
+    text-decoration: underline;
 }
 .welcome-container {
     height: 100vh;
@@ -86,22 +96,259 @@ body {
     margin-left: 10px;
 }
 
+/* Fonts and colors */
+body {
+    background-color: #121212;
+    color: #f8f8f8;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Hero carousel image styling */
+.hero-img {
+    height: 500px;
+    object-fit: fill;
+}
+
+/* Glass-like background for captions with pink tint */
+.bg-glass {
+    background: rgba(255 45 149 / 0.75);
+    backdrop-filter: saturate(200%) blur(10px);
+    color: #fff !important;
+}
+
+/* Section Titles */
+.section-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #ff79c6;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff2d95, #ff79c6);
+    bottom: -8px;
+    left: 0;
+    border-radius: 2px;
+}
+
+/* Animations */
+.animate-slide {
+    animation: slideDownFade 0.6s ease forwards;
+    opacity: 0;
+}
+
+@keyframes slideDownFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Overflow horizontal scroll with snapping */
+.snap-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+}
+
+.snap-center {
+    scroll-snap-align: center;
+}
+
+/* Cards Hover Scale & transition */
+.transition-transform {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover,
+.hover-scale:focus {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(255, 45, 149, 0.6);
+    outline: none;
+}
+
+/* Fade-in multiple elements */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Book badge for 'New' */
+.book-badge {
+    position: absolute;
+
+    background: linear-gradient(90deg, #ff2d95, #ff79c6);
+    color: white;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    box-shadow: 0 3px 8px rgba(255, 45, 149, 0.7);
+    z-index: 5;
+}
+
+/* Scrollbar hidden on overflow-x */
+.d-flex.overflow-x-auto::-webkit-scrollbar {
+    display: none;
+}
+.d-flex.overflow-x-auto {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Buttons */
+
+/* Pink buttons */
+.btn-pink {
+    background: #ff2d95;
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-pink:hover,
+.btn-pink:focus {
+    background: #ff79c6;
+    box-shadow: 0 0 12px #ff79c6;
+    outline: none;
+}
+
+.btn-pink-alt {
+    background: #ff79c6;
+    border: none;
+    color: #121212;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-pink-alt:hover,
+.btn-pink-alt:focus {
+    background: #ff2d95;
+    box-shadow: 0 0 12px #ff2d95;
+    outline: none;
+}
+
+/* Outline pink buttons */
+.btn-outline-pink {
+    border-color: #ff2d95;
+    color: #ff2d95;
+    background: transparent;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-pink:hover,
+.btn-outline-pink:focus {
+    background-color: #ff2d95;
+    color: #121212;
+    border-color: #ff79c6;
+    box-shadow: 0 0 12px #ff79c6;
+    outline: none;
+}
+
+/* Outline dark buttons for latest books */
+.btn-outline-dark {
+    border-color: #ff79c6;
+    color: #ff79c6;
+    background: transparent;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:focus {
+    background-color: #ff79c6;
+    color: #121212;
+    border-color: #ff2d95;
+    box-shadow: 0 0 12px #ff2d95;
+    outline: none;
+}
+
+/* Text pink */
+.pink-text {
+    color: #ff79c6 !important;
+}
+
+/* Badge */
+.badge.bg-pink {
+    background-color: #ff79c6 !important;
+    color: #121212 !important;
+}
+
+/* Search form styling */
+.search-form {
+    max-width: 700px;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(255, 45, 149, 0.5);
+    background-color: #ff79c6;
+}
+
+.search-input {
+    border: none;
+    padding: 0.55rem 1.5rem;
+    font-size: 1.1rem;
+    background: transparent;
+    color: #ff79c6;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #ff2d95aa;
+    font-weight: 400;
+}
+
+.search-input:focus {
+    background-color: #271728;
+}
+
+.btn.btn-pink {
+    border-radius: 0 50px 50px 0;
+    padding-left: 1.8rem;
+    padding-right: 1.8rem;
+}
+
+/* Border pink for hr */
+.border-pink {
+    border-color: #ff2d95 !important;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .book-form {
         padding: 15px;
     }
 }
- .table td {
-            vertical-align: middle;
-        }
-        .table th {
-            white-space: nowrap;
-        }
-.book-card {
+.table td {
+    vertical-align: middle;
+}
+.table th {
+    white-space: nowrap;
+}
+#book-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.book-card:hover {
+#book-card:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
@@ -113,20 +360,419 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* repeated body style - ensure no duplicates */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #f8f8f8;
+}
+
+.container.my-5 {
+    max-width: 900px;
+}
+
+.book-detail-card {
+    background: linear-gradient(135deg, #ff2d95 0%, #d9006c 100%);
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(255, 45, 149, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.book-detail-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 35px rgba(255, 45, 149, 0.85);
+}
+
+.cover-wrapper {
+    flex: 1 1 40%;
+    min-width: 280px;
+    max-height: 460px;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    background: #1f1f1f;
+    box-shadow: inset 0 0 30px #ff2d95;
+}
+
+.cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: drop-shadow(0 0 15px #ff2d95);
+    transition: transform 0.4s ease;
+}
+
+.cover-wrapper:hover img {
+    transform: scale(1.1);
+}
+
+.info-wrapper {
+    flex: 1 1 60%;
+    padding: 2rem 2.5rem;
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.info-wrapper h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ff79c6;
+    text-shadow: 0 0 10px #ff2d95;
+}
+
+.info-wrapper p {
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin: 0.35rem 0;
+    color: #ccc;
+}
+
+.info-wrapper p strong {
+    color: #ff2d95;
+}
+
+hr {
+    margin: 1.8rem 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ff2d95, transparent);
+}
+
+.description {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #ddd;
+    max-height: 190px;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #ff2d95 transparent;
+}
+.description::-webkit-scrollbar {
+    width: 6px;
+}
+.description::-webkit-scrollbar-track {
+    background: transparent;
+}
+.description::-webkit-scrollbar-thumb {
+    background-color: #ff2d95;
+    border-radius: 3px;
+}
+
+.btn-download, .btn-back {
+    margin-top: 1.8rem;
+    padding: 0.6rem 1.8rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    border: 2px solid #ff2d95;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+    text-decoration: none;
+}
+
+.btn-download {
+    background: transparent;
+    color: #ff2d95;
+    box-shadow: 0 0 10px #ff2d95;
+}
+
+.btn-download:hover,
+.btn-download:focus {
+    background: #ff2d95;
+    color: #1a1a1a;
+    box-shadow: 0 0 20px #ff79c6;
+    outline: none;
+    transform: scale(1.05);
+}
+
+.btn-download i {
+    font-size: 1.2rem;
+}
+
+.btn-back {
+    color: #bbb;
+    border-color: #555;
+    background: transparent;
+    font-weight: 500;
+}
+.btn-back:hover,
+.btn-back:focus {
+    color: #ff79c6;
+    border-color: #ff79c6;
+    outline: none;
+}
+
+.text-danger a {
+    color: #ff2d95;
+    font-weight: 600;
+    text-decoration: underline;
+}
+.text-danger a:hover, .text-danger a:focus {
+    color: #ff79c6;
+    outline: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .book-detail-card {
+        flex-direction: column;
+    }
+    .cover-wrapper {
+        clip-path: none;
+        max-height: 360px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Search result card */
+.search-result-item {
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-result-item:hover,
+.search-result-item:focus-within {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(255, 45, 149, 0.7);
+    outline: none;
+}
+
+.search-result-img {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(255, 45, 149, 0.4);
+}
+
+.description-text {
+    color: #ddd;
+}
+
+/* Alert black & pink border */
+.text-pink-border {
+    border: 2px solid #ff2d95;
+    background-color: #121212 !important;
+    color: #ff79c6 !important;
+}
+
+/* Back button styling */
+.btn-back {
+    display: inline-flex;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    background-color: transparent;
+    border: 2px solid #ff2d95;
+    color: #ff79c6;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-back:hover,
+.btn-back:focus {
+    background-color: #ff2d95;
+    color: #121212;
+    outline: none;
+    box-shadow: 0 0 15px #ff79c6;
+}
+
+/* Pagination links */
+.pagination-custom .page-link {
+    color: #ff79c6;
+    background-color: transparent;
+    border: 2px solid #ff2d95;
+    margin: 0 4px;
+    border-radius: 50px;
+    min-width: 38px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.pagination-custom .page-item.active .page-link {
+    background-color: #ff2d95;
+    color: #121212;
+    border-color: #ff2d95;
+    box-shadow: 0 0 12px #ff79c6;
+    cursor: default;
+}
+
+.pagination-custom .page-link:hover,
+.pagination-custom .page-link:focus {
+    background-color: #ff79c6;
+    color: #121212;
+    border-color: #ff79c6;
+    box-shadow: 0 0 15px #ff79c6;
+    outline: none;
+    text-decoration: none;
+}
+
+.pagination-custom .page-item.disabled .page-link {
+    color: #555;
+    border-color: transparent;
+    cursor: default;
+    background: transparent;
+}
+
+/* Additional styles and hover effects */
+.hero-img {
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.bg-glass {
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.section-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 0.5rem;
+    border-left: 4px solid #333;
+}
+
+.hover-scale:hover {
+    transform: scale(1.03);
+}
+
+.transition-transform {
+    transition: transform 0.3s ease;
+}
 
 .fade-in {
+    animation: fadeIn 0.8s ease-in forwards;
     opacity: 0;
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.1s;
 }
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.snap-x {
+    scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+    scroll-snap-align: center;
+}
+
+.book-badge {
+    position: absolute;
+    top: 15px;
+    right: -5px;
+    background: #e91e63;
+    color: white;
+    padding: 5px 15px;
+    font-weight: 600;
+    transform: rotate(5deg);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+/* Back button alternative style */
+.btn-back {
+  background-color: #000000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  justify-content: center;
+  display: block;
+  text-align: center;
+}
+
+a .btn-back{
+  justify-content: center;
+  display: block;
+  text-align: center;
+}
+
+.btn-back:hover {
+  background-color:transparent;
+  color: #000000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+a .btn-outline-primary{
+  color: #2b3749;
+}
+  /* Enhance hero admin */
+        .hero-admin {
+            background: #fafafa url('https://cdn-icons-png.flaticon.com/512/29/29302.png') no-repeat center right 15px;
+            background-size: 50px 50px;
+        }
+
+        /* Button hover */
+        .btn-outline-warning:hover {
+            color: white !important;
+            background-color: #ff5722 !important;
+            border-color: #ff5722 !important;
+        }
+
+        /* Table row hover */
+        #book-table tbody tr:hover {
+            background-color: #fff3e0;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Font weight for title column */
+        .font-weight-semibold {
+            font-weight: 600;
+        }
+
+        /* Pagination styling */
+        .pagination .page-link {
+            color: #ff5722;
+            border-color: #ff5722;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ff5722;
+            border-color: #ff5722;
+            color: white;
+        }
+ .btn-orange {
+            background-color: #f97316;
+        }
+        .btn-orange:hover {
+            background-color: #ea580c;
+        }
+        .btn-secondary {
+            background-color: #f3f4f6;
+        }
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+.main-banner {
+  background-color: #FC77B1;
 }
 

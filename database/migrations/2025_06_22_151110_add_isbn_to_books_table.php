@@ -16,27 +16,17 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
 
-            // Use unsignedBigInteger for foreign keys
-            $table->foreignId('author_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            // Foreign keys
+            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
 
             $table->date('published_at')->nullable();
             $table->string('file_path');
             $table->string('cover_image')->nullable();
             $table->integer('download_count')->default(0);
+
             $table->softDeletes();
             $table->timestamps();
-
-            // Add foreign key constraints
-            $table->foreign('author_id')
-                ->references('id')
-                ->on('authors')
-                ->onDelete('cascade');
-
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
-                ->onDelete('cascade');
         });
     }
 

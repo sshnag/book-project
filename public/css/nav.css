@@ -1,0 +1,153 @@
+/* General body and container */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfaf6;
+    color: #2c3e50;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Header and nav bar */
+.navbar {
+    background-color: #243b55;
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+.navbar a {
+    color: rgb(0, 0, 0);
+    margin-right: 25px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #FC77B1;
+}
+
+/* Logo styling */
+.logo {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #FC77B1;
+}
+
+/* Main banner text */
+.banner-heading {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #34495e;
+}
+
+.banner-heading .highlight {
+    color: #FC77B1;
+    text-decoration: underline;
+}
+
+/* Subheading */
+.banner-subheading {
+    font-size: 1.25rem;
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+/* Call-to-action button */
+.btn-primary {
+    background-color: #FC77B1;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #FC77B1;
+}
+
+/* Section cards (New Release, Pre-Order, Top Rated) */
+.section-card {
+    border-radius: 8px;
+    padding: 20px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+
+
+
+
+.section-card:hover {
+    transform: scale(1.05);
+}
+
+/* Discount Banner */
+.discount-banner {
+    background-color: #ecf0f1;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.discount-banner .btn-primary {
+    margin-top: 20px;
+    background-color: #34495e;
+}
+
+.discount-banner .btn-primary:hover {
+    background-color: #2c3e50;
+}
+
+/* Trending Books */
+.trending-books .book-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #34495e;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.trending-books .book-price {
+    color: #e67e22;
+    font-weight: 700;
+}
+
+/* Top Categories */
+.top-categories img {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.top-categories img:hover {
+    transform: scale(1.07);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .banner-heading {
+        font-size: 2.2rem;
+    }
+
+    .navbar a {
+        margin-right: 15px;
+    }
+
+    .section-card {
+        margin-bottom: 15px;
+    }
+}

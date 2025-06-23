@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/book/download/{book}',[BookController::class,'download'])->middleware('auth')->name('books.download');
 
-Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Authentication routes
 Auth::routes();
+Route::get('/search', [App\Http\Controllers\BookController::class, 'search'])->name('search');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('books', BookController::class, ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy','adminShow']]);
