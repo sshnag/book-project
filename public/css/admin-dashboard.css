@@ -223,3 +223,23 @@ form.d-inline {
 .pagination-wrapper {
     margin-top: 1rem;
 }
+  .btn-group .btn-sm {
+            margin: 0 2px;
+        }
+
+        /* Make the card header more prominent */
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            padding: 0.75rem 1.25rem;
+        }
+
+        /* Improve table row hover effect */
+        .table-hover tbody tr:hover {
+            background-color: rgba(0,0,0,.03);
+        }
+
+        /* Style pagination links */
+        .pagination {
+            margin-bottom: 0;
+        }

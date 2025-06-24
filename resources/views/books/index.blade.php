@@ -3,8 +3,13 @@
 @section('title', 'Books Management')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center mb-3">
-
+@if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+     <div class="d-flex justify-content-end mb-3"> <!-- Changed to justify-content-end -->
         <a href="{{ route('admin.books.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
             <i class="fas fa-plus"></i> Add New Book
         </a>
@@ -64,3 +69,9 @@
 
 
 @endsection
+@push('styles')
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
+@endpush

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/books/{book}', [BookController::class, 'userShow'])->name('books.show');
 
 // Authentication routes with cache prevention
 Auth::routes(['middleware' => 'no-cache']);
@@ -31,8 +32,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:ad
 // Consolidated user routes with cache prevention
 Route::middleware(['auth', 'no-cache'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/books/{book}', [BookController::class, 'userShow'])->name('books.show');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
 

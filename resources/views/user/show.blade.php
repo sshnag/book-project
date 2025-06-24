@@ -60,7 +60,7 @@
     @endauth
 
     <a href="{{ route('home') }}" class="btn btn-dark btn-back rounded-pill">
-        ← Back to Home
+        Back
     </a>
 </div>
         </section>
