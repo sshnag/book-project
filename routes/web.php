@@ -35,6 +35,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:ad
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class);
+    Route::get('admin/contacts',[ContactController::class,'index'])->name('contact.index');
+        Route::get('/admin/contacts/data', [ContactController::class, 'getData'])->name('contacts.data');
+
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

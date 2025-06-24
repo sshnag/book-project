@@ -416,6 +416,11 @@ return [
         //         ],
         //     ],
         // ],
+         [
+            'text'  => 'Users',
+            'route' => 'admin.users.index',
+            'icon'  => 'fas fa-user',
+        ],
         [
             'text' => 'Authors',
             'url'  => '/admin/authors',
@@ -431,11 +436,12 @@ return [
             'url'  => '/admin/books',
             'icon' => 'fas fa-book',
         ],
-        [
-            'text'  => 'Users',
-            'route' => 'admin.users.index',
-            'icon'  => 'fas fa-user',
+         [
+            'text'  => 'Requests',
+            'route' => 'admin.contact.index',
+            'icon'  => 'fas fa-letter',
         ],
+
     ],
 
     /*

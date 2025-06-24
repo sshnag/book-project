@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
-
+use Yajra\DataTables\DataTables;
 class ContactController extends Controller
 {
     /**
@@ -13,6 +13,29 @@ class ContactController extends Controller
     public function index()
     {
         return view('contact');
+    }
+    public function getData(Request $request)
+    {
+        $query = Contact::query();
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<button class="btn btn-sm btn-outline-secondary disabled">View</button>';
+            })
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at->format('d M Y h:i A');
+            })
+            ->editColumn('status', function ($row) {
+                $badgeColor = match ($row->status) {
+                    'new' => 'warning',
+                    'read' => 'info',
+                    'replied' => 'success',
+                    default => 'secondary',
+                };
+                return '<span class="badge bg-' . $badgeColor . '">' . ucfirst($row->status) . '</span>';
+            })
+            ->rawColumns(['action', 'status'])
+            ->make(true);
     }
 
     /**
