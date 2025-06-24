@@ -38,7 +38,7 @@
                 >
                     Create Category
                 </button>
-                <a href="{{ route('admin.categories.index') }}"
+                <a href="javascript:void(0)" onclick="history.back()"
                    class="btn btn-secondary px-6 py-2 rounded-md font-semibold text-gray-700 border border-gray-300 hover:bg-gray-100 transition text-center">
                    Back
                 </a>

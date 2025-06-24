@@ -116,7 +116,7 @@
                 <button type="submit" class="btn btn-outline-dark">
                     {{ isset($book) ? 'Update' : 'Save' }} Book
                 </button>
-                <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">Cancel</a>
+                <a href="javascript:void(0)" onclick="history.back()" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

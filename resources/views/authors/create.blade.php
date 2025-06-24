@@ -24,7 +24,7 @@
             </div>
 
             <button type="submit" class="btn btn-outline-dark mt-3">Create Author</button>
-            <a href="{{ route('admin.authors.index') }}" class="btn btn-secondary mt-3">Back</a>
+            <a href="javascript:void(0)" onclick="history.back()"  class="btn btn-secondary mt-3">Back</a>
         </form>
     </div>
 @endsection

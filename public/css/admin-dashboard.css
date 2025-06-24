@@ -50,7 +50,7 @@ h5.fw-semibold, h5.fw-bold {
 /* Chart canvas - fixes any overflow and consistent sizing */
 canvas {
     display: block;
-    width: 100% !important;
+    width: 90% !important;
     height: 350px !important;
 }
 
@@ -176,4 +176,50 @@ form.d-inline {
         font-size: 0.75rem;
         padding: 0.25rem 0.5rem;
     }
+}
+/* admin-dashboard.css */
+
+/* Table styling */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.users-table th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+}
+
+/* Delete button styling */
+.delete-button {
+    display: inline-block;
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.875rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Make form inline */
+.delete-form {
+    display: inline;
+}
+
+/* Pagination wrapper spacing */
+.pagination-wrapper {
+    margin-top: 1rem;
 }

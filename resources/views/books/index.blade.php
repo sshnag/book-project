@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <a href="{{ route('admin.books.create') }}" class="btn btn-outline-warning font-weight-bold" style="border-radius: 50px;">
+        <a href="{{ route('admin.books.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
             <i class="fas fa-plus"></i> Add New Book
         </a>
     </div>
@@ -15,7 +15,7 @@
 @section('content')
     <div class="card shadow-sm">
         <div class="card-body p-0">
-            <table id="book-table" class="table table-bordered table-hover mb-0">
+            <table id="book-table" class="table table-responsive table-bordered table-hover mb-0">
                 <thead class="thead-light text-uppercase text-secondary small">
                     <tr>
                         <th class="font-weight-bold" style="width: 25%;">Title</th>

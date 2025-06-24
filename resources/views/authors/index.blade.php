@@ -5,8 +5,8 @@
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="fw-bold text-dark"> Authors</h1>
-         <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-warning font-weight-bold" style="border-radius: 50px;">
-            <i class="fas fa-plus"></i> Add New Book
+         <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
+            <i class="fas fa-plus"></i> Add New Author
         </a>
     </div>
 @endsection

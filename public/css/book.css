@@ -1,8 +1,33 @@
 /* The entire CSS content you provided goes here */
 body {
     background-color: #fafafa;
+    color:#121212;
     font-family: 'Poppins', sans-serif;
 }
+.btn-warning {
+    background-color: #FC77B1;
+    border-color: #FC77B1;
+    transition: background-color 0.3s ease;
+    color: #fff;
+}
+
+   .btn-warning:hover,
+.btn-warning:focus {
+    background-color: #ff2d95;
+    border-color: #ff2d95;
+    color: #fff;
+    text-decoration: none;
+}
+
+    .book-detail-card {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .badge {
+        font-size: 0.85em;
+        padding: 0.25em 0.6em;
+    }
+
 
 .card {
     background: #ffffff;
@@ -15,6 +40,7 @@ body {
 
 .btn-primary:hover {
     background-color: #FC77B1 !important;
+      color: #fff;
 }
 
 a.text-decoration-none:hover {
@@ -35,8 +61,11 @@ a.text-decoration-none:hover {
     height: 250px;
     object-fit: cover;
 }
+.mb-3{
+    transition: 0.3s ease-out;
+}
 .mb-3:hover{
-    transition: ease-out;
+    transition: scale(1.05);
 }
 /* Book Form Styling */
 .book-form {
@@ -105,6 +134,7 @@ body {
 
 /* Hero carousel image styling */
 .hero-img {
+        max-height: 500px;
     height: 500px;
     object-fit: fill;
 }
@@ -217,11 +247,14 @@ body {
 }
 
 /* Buttons */
-
+span .badge{
+    color: #ffffff;
+}
+    
 /* Pink buttons */
 .btn-pink {
     background: #ff2d95;
-    border: none;
+    border-bottom: #000000;
     color: white;
     font-weight: 600;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -324,7 +357,7 @@ body {
 }
 
 .btn.btn-pink {
-    border-radius: 0 50px 50px 0;
+    border-radius:10px;
     padding-left: 1.8rem;
     padding-right: 1.8rem;
 }
@@ -363,7 +396,7 @@ body {
 /* repeated body style - ensure no duplicates */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #121212;
+    background-color: #ffffff;
     color: #f8f8f8;
 }
 
@@ -372,20 +405,17 @@ body {
 }
 
 .book-detail-card {
-    background: linear-gradient(135deg, #ff2d95 0%, #d9006c 100%);
     border-radius: 20px;
-    box-shadow: 0 12px 25px rgba(255, 45, 149, 0.6);
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
     padding: 0;
     transition: transform 0.3s ease;
+        box-shadow: 0 0 15px rgba(252, 119, 177, 0.3);
+
 }
 
-.book-detail-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 20px 35px rgba(255, 45, 149, 0.85);
-}
+
 
 .cover-wrapper {
     flex: 1 1 40%;
@@ -394,7 +424,7 @@ body {
     overflow: hidden;
     position: relative;
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    background: #1f1f1f;
+    background: #ffffff;
     box-shadow: inset 0 0 30px #ff2d95;
 }
 
@@ -413,7 +443,7 @@ body {
 .info-wrapper {
     flex: 1 1 60%;
     padding: 2rem 2.5rem;
-    background: #1a1a1a;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -447,6 +477,7 @@ hr {
 }
 
 .description {
+    white-space: pre-wrap;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.6;
@@ -525,6 +556,7 @@ hr {
 .text-danger a:hover, .text-danger a:focus {
     color: #ff79c6;
     outline: none;
+    text-decoration: underline;
 }
 
 /* Responsive */
@@ -573,6 +605,7 @@ hr {
 }
 
 /* Back button styling */
+
 .btn-back {
     display: inline-flex;
     padding: 0.5rem 1.5rem;
@@ -584,7 +617,9 @@ hr {
     font-size: 1rem;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    justify-content: center;
+    text-align: center;
 }
 
 .btn-back:hover,
@@ -637,10 +672,7 @@ hr {
 }
 
 /* Additional styles and hover effects */
-.hero-img {
-    max-height: 500px;
-    object-fit: cover;
-}
+
 
 .bg-glass {
     background: rgb(255, 255, 255);
@@ -761,15 +793,24 @@ a .btn-outline-primary{
             color: white;
         }
  .btn-orange {
-            background-color: #f97316;
+background-color: #ff79c6;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
         }
         .btn-orange:hover {
-            background-color: #ea580c;
+            background-color: #FC77B1;
         }
         .btn-secondary {
             background-color: #f3f4f6;
+            color: #121212;
+    border: none;
+    transition: background-color 0.3s ease;
+
         }
         .btn-secondary:hover {
+                background-color: #e5e7eb;
+
             background-color: #e5e7eb;
         }
 .main-banner {

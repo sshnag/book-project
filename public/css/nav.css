@@ -19,7 +19,24 @@ body {
     padding: 15px 20px;
     font-weight: 600;
 }
-
+.dropdown-menu {
+        min-width: 220px;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+    }
+    .dropdown-item {
+        transition: all 0.2s;
+        border-radius: 4px;
+        margin: 2px 5px;
+    }
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+        transform: translateX(2px);
+    }
+    .dropdown-header {
+        font-size: 0.85rem;
+        padding-bottom: 5px;
+    }
 .navbar a {
     color: rgb(0, 0, 0);
     margin-right: 25px;
@@ -36,6 +53,10 @@ body {
     font-family: 'Georgia', serif;
     font-size: 28px;
     font-weight: bold;
+    color: #FC77B1;
+}
+.container .navbar-brand
+{
     color: #FC77B1;
 }
 
@@ -93,38 +114,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Discount Banner */
-.discount-banner {
-    background-color: #ecf0f1;
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.discount-banner .btn-primary {
-    margin-top: 20px;
-    background-color: #34495e;
-}
-
-.discount-banner .btn-primary:hover {
-    background-color: #2c3e50;
-}
-
-/* Trending Books */
-.trending-books .book-title {
-    font-weight: 600;
-    font-size: 1rem;
-    color: #34495e;
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-.trending-books .book-price {
-    color: #e67e22;
-    font-weight: 700;
-}
-
 /* Top Categories */
 .top-categories img {
     border-radius: 12px;
@@ -151,3 +140,23 @@ body {
         margin-bottom: 15px;
     }
 }
+        .footer {
+            background-color: #2a2a2a;
+            font-size: 0.9rem;
+        }
+        .footer-link {
+            color: #bbbbbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-link:hover {
+            color: #FC77B1; /* accent color similar to Bookio's orange */
+            text-decoration: underline;
+        }
+        .footer-icon {
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+        .footer-icon:hover {
+            color: #FC77B1;
+        }

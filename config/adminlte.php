@@ -398,24 +398,24 @@ return [
             'url'  => '/admin/dashboard',
             'icon' => 'fas fa-tachometer-alt',
         ],
-        [
-            'text'    => 'Add New',
-            'icon'    => 'fas fa-plus',
-            'submenu' => [
-                [
-                    'text' => 'Author',
-                    'url'  => '/admin/authors/create',
-                ],
-                [
-                    'text' => 'Category',
-                    'url'  => '/admin/categories/create',
-                ],
-                [
-                    'text' => 'Book',
-                    'url'  => '/admin/books/create',
-                ],
-            ],
-        ],
+        // [
+        //     'text'    => 'Add New',
+        //     'icon'    => 'fas fa-plus',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Author',
+        //             'url'  => '/admin/authors/create',
+        //         ],
+        //         [
+        //             'text' => 'Category',
+        //             'url'  => '/admin/categories/create',
+        //         ],
+        //         [
+        //             'text' => 'Book',
+        //             'url'  => '/admin/books/create',
+        //         ],
+        //     ],
+        // ],
         [
             'text' => 'Authors',
             'url'  => '/admin/authors',

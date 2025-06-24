@@ -133,7 +133,7 @@
     @if (isset($relatedBooks) && $relatedBooks->count())
         <div class="container my-5">
             <hr class="my-5 border-pink">
-            <h2 class="section-title animate-slide">📚 Related Books</h2>
+            <h2 class="section-title animate-slide">Related Books</h2>
             <div class="row g-4">
                 @foreach ($relatedBooks as $related)
                     <div class="col-md-3 fade-in">
