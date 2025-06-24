@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class AuthorController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::all();
-        $authors = Author::simplePaginate(5); // Pagination
-        return view('authors.index', compact('authors'));
+         if ($request->ajax()) {
+        $authors = Author::withCount('books');
+
+        return DataTables::eloquent($authors)
+            ->addColumn('action', function ($author) {
+                return view('authors.partials.action', compact('author'))->render();
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    return view('authors.index');
     }
 
     public function create()

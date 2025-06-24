@@ -243,3 +243,13 @@ form.d-inline {
         .pagination {
             margin-bottom: 0;
         }
+   #authors-table_wrapper .dataTables_filter input {
+            border-radius: 20px;
+            padding: 5px 15px;
+            border: 1px solid #ddd;
+        }
+        .badge-book-count {
+            font-size: 0.85em;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
