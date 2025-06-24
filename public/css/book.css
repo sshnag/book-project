@@ -4,6 +4,46 @@ body {
     color:#121212;
     font-family: 'Poppins', sans-serif;
 }
+
+.contact-overlay {
+  padding: 20px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 10px;
+}
+
+.contact-image-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.custom-card {
+  border-left: 8px solid #FC77B1;
+  border-radius: 12px;
+}
+
+
+input.form-control,
+textarea.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+  border-color: #FC77B1;
+  box-shadow: 0 0 0 0.2rem rgba(252, 119, 177, 0.25);
+}
+
+#socialmedia-links a {
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
+
+#socialmedia-links a:hover {
+  transform: scale(1.2);
+}
+
+
 .btn-warning {
     background-color: #FC77B1;
     border-color: #FC77B1;
@@ -250,7 +290,7 @@ body {
 span .badge{
     color: #ffffff;
 }
-    
+
 /* Pink buttons */
 .btn-pink {
     background: #ff2d95;
