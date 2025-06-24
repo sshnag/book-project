@@ -436,11 +436,11 @@ return [
             'url'  => '/admin/books',
             'icon' => 'fas fa-book',
         ],
-         [
-            'text'  => 'Requests',
-            'route' => 'admin.contact.index',
-            'icon'  => 'fas fa-letter',
-        ],
+        //  [
+        //     'text'  => 'Requests',
+        //     'route' => 'admin.contacts.index',
+        //     'icon'  => 'fas fa-letter',
+        // ],
 
     ],
 

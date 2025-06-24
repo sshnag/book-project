@@ -35,9 +35,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:ad
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class);
-    Route::get('admin/contacts',[ContactController::class,'index'])->name('contact.index');
-        Route::get('/admin/contacts/data', [ContactController::class, 'getData'])->name('contacts.data');
-
+     Route::get('contacts', [ContactController::class, 'adminIndex'])->name('contacts.index');
+    Route::get('contacts/data', [ContactController::class, 'getData'])->name('contact.data');
+    Route::get('contacts/{contact}', [ContactController::class, 'adminShow'])->name('contacts.show');
+ Route::delete('contacts/{contact}', [ContactController::class, 'adminDestroy'])->name('admin.contacts.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

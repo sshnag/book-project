@@ -10,7 +10,7 @@
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
@@ -20,6 +20,7 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
+                        <th>Name</th>
                         <th>Email</th>
                         <th>Book Title</th>
                         <th>Message</th>
@@ -35,6 +36,12 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <style>
+        .badge {
+            font-size: 0.9em;
+            padding: 0.5em 0.75em;
+        }
+    </style>
 @endpush
 
 @push('js')
@@ -45,19 +52,19 @@
             $('#contact-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('contacts.data') }}",
+                ajax: "{{ route('admin.contact.data') }}",
                 columns: [
                     { data: 'id', name: 'id', className: 'align-middle' },
+                    { data: 'name', name: 'name', className: 'align-middle' },
                     { data: 'email', name: 'email', className: 'align-middle' },
                     { data: 'book_title', name: 'book_title', className: 'align-middle' },
-                    { data: 'message', name: 'message', className: 'align-middle', render: function(data) {
-                        return data.length > 50 ? data.substring(0, 50) + '...' : data;
-                    }},
+                    { data: 'message', name: 'message', className: 'align-middle' },
                     { data: 'status', name: 'status', className: 'align-middle text-center' },
                     { data: 'created_at', name: 'created_at', className: 'align-middle' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
                 ],
-                order: [[0, 'desc']]
+                order: [[0, 'desc']],
+                responsive: true
             });
         });
     </script>

@@ -8,4 +8,7 @@ class Contact extends Model
 {
     protected $fillable = [
         'name','email','book_title','message','status',];
+          protected $casts = [
+        'created_at' => 'datetime',
+    ];
 }
