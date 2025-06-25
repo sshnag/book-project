@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        // Force fresh query without caching
+        // category query without caching
         $categories = Category::query()
             ->orderBy('name')
             ->get()

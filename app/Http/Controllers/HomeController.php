@@ -17,6 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        //authentication except home page for public view
     $this->middleware('auth')->except(['index']);
     }
 
@@ -27,6 +28,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        //retrieving data to display in home page
         $books         = Book::latest('created_at')->paginate(6);
         $featuredCategories = Category::latest('created_at')->paginate(6);
         $featuredBooks = Book::inRandomOrder()->take(6)->get();                   // or use a 'featured' flag

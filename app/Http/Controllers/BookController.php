@@ -118,6 +118,7 @@ class BookController extends Controller
     }
     public function download(Book $book)
     {
+        //download book and directing path
         $book->increment('download_count');
         $file = storage_path('app/public/' . $book->file_path);
         if (! file_exists($file)) {
@@ -128,6 +129,7 @@ class BookController extends Controller
 
    public function search(Request $request)
 {
+    //searching
     $categories = Category::all();
 
     $books = Book::with('author', 'category')

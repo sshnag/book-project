@@ -13,6 +13,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        //User list table using Yajra datatable
         $users = User::paginate(10);
 
          if ($request->ajax()) {

@@ -1,21 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // Public routes (open to all)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books/{book}', action: [BookController::class, 'userShow'])->name('books.show');
 Route::get('/search', [BookController::class, 'search'])->name('search');
-Route::get('/contact',[ContactController::class,'create'])->name('contact.create');
-Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
+
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 // Auth routes
 Auth::routes(['middleware' => 'no-cache']);
 
@@ -32,14 +33,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:ad
     Route::resource('books', BookController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::get('/books/{book}', [BookController::class, 'adminShow'])->name('books.show');
 
+    // Fix: Admin contact routes
+    Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+    Route::get('contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
+    Route::patch('contacts/{contact}/status', [ContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class);
-     Route::get('contacts', [ContactController::class, 'adminIndex'])->name('contacts.index');
-    Route::get('contacts/data', [ContactController::class, 'getData'])->name('contact.data');
-    Route::get('contacts/{contact}', [ContactController::class, 'adminShow'])->name('contacts.show');
- Route::delete('contacts/{contact}', [ContactController::class, 'adminDestroy'])->name('admin.contacts.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
-

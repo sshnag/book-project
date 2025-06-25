@@ -11,6 +11,7 @@ class AuthorController extends Controller
 
     public function index(Request $request)
     {
+        //Author lists using Yajra Datatable
          if ($request->ajax()) {
         $authors = Author::withCount('books');
 
@@ -32,6 +33,7 @@ class AuthorController extends Controller
 
     public function store(Request $request)
     {
+        //storing authors data
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
@@ -45,6 +47,7 @@ class AuthorController extends Controller
 
     public function update(Request $request, Author $author)
     {
+        //Update
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
@@ -55,6 +58,7 @@ class AuthorController extends Controller
 
     public function destroy(Author $author)
     {
+        //delete
         $author->delete();
         return redirect()->route('admin.authors.index')->with('success', 'Author is Archieved!');
     }

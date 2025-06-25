@@ -9,8 +9,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-     <div class="d-flex justify-content-end mb-3"> <!-- Changed to justify-content-end -->
-        <a href="{{ route('admin.books.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
+     <div class="d-flex justify-content-between align-items-center">
+        <h1 class="fw-bold text-dark"> Books List</h1>
+        <a href="{{ route('admin.books.create') }}" class="btn btn-outline-dark font-weight-bold"
+            style="border-radius: 50px;">
             <i class="fas fa-plus"></i> Add New Book
         </a>
     </div>
