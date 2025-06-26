@@ -29,7 +29,7 @@ class ContactController extends Controller
             'status'     => 'new',
         ]);
 
-        return redirect()->back()->with('success', 'Your Message has been sent!');
+    return redirect()->back()->with('success', 'Thanks for reaching out! We’ll reply as soon as possible.');
     }
 
     // Admin contact management
@@ -74,7 +74,7 @@ public function show($id)
 
     return view('contact.show', compact('contact'));
 }
-    
+
     // public function getData(Request $request)
     // {
     //     $query = Contact::query();

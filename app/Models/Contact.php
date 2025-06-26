@@ -10,7 +10,7 @@ class Contact extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name','email','book_title','message','status',];
+        'name','email','book_title','message','status'];
           protected $casts = [
         'created_at' => 'datetime',
     ];
