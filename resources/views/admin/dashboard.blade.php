@@ -4,26 +4,27 @@
 
 @section('content_header')
 
-<div class="d-flex justify-content-between align-items-center">
-    <h1 class="text-dark fw-bold">Admin Dashboard</h1>
-    <div class="dropdown">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dashboardDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-book me-1"></i>  <span>Add New</span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dashboardDropdown">
-            <a class="dropdown-item py-2" href="{{ route('admin.authors.create') }}">
-                <i class="fas fa-feather me-2 text-info"></i> Authors
-            </a>
-            <a class="dropdown-item py-2" href="{{ route('admin.categories.create') }}">
-                <i class="fas fa-tags me-2 text-success"></i> Categories
-            </a>
-            <a class="dropdown-item py-2" href="{{ route('admin.books.create') }}">
-                <i class="fas fa-book me-2 text-primary"></i> Books
-            </a>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-dark fw-bold">Admin Dashboard</h1>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dashboardDropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-book me-1"></i> <span>Add New</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dashboardDropdown">
+                <a class="dropdown-item py-2" href="{{ route('admin.authors.create') }}">
+                    <i class="fas fa-feather me-2 text-info"></i> Authors
+                </a>
+                <a class="dropdown-item py-2" href="{{ route('admin.categories.create') }}">
+                    <i class="fas fa-tags me-2 text-success"></i> Categories
+                </a>
+                <a class="dropdown-item py-2" href="{{ route('admin.books.create') }}">
+                    <i class="fas fa-book me-2 text-primary"></i> Books
+                </a>
 
+            </div>
         </div>
     </div>
-</div>
 @stop
 
 @section('content')

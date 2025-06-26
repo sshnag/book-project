@@ -5,7 +5,8 @@
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="fw-bold text-dark">Authors</h1>
-        <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
+        <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-dark font-weight-bold"
+            style="border-radius: 50px;">
             <i class="fas fa-plus"></i> Add New Author
         </a>
     </div>
@@ -40,8 +41,7 @@
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-        <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
 @endpush
 
 @push('js')
@@ -54,8 +54,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin.authors.index') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'id',
                         name: 'id',
                         width: '5%',
@@ -99,7 +98,9 @@
                         previous: '<i class="fas fa-chevron-left"></i>'
                     }
                 },
-                order: [[0, 'asc']],
+                order: [
+                    [0, 'asc']
+                ],
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50],
                 drawCallback: function(settings) {

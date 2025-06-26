@@ -20,11 +20,11 @@
 
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}" >
+                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
             </div>
 
             <button type="submit" class="btn btn-outline-dark mt-3">Create Author</button>
-            <a href="javascript:void(0)" onclick="history.back()"  class="btn btn-secondary mt-3">Back</a>
+            <a href="javascript:void(0)" onclick="history.back()" class="btn btn-secondary mt-3">Back</a>
         </form>
     </div>
 @endsection

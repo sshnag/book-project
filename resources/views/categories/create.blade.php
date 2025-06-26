@@ -21,26 +21,18 @@
             <div class="form-group">
                 <label for="name" class="block mb-2 text-gray-700 font-medium">Category Name</label>
                 <br>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value="{{ old('name') }}"
+                <input type="text" id="name" name="name" value="{{ old('name') }}"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                    placeholder="Enter category name"
-                >
+                    placeholder="Enter category name">
             </div>
 
             <div class="flex space-x-4">
-                <button
-                    type="submit"
-                    class="btn btn-outline-dark"
-                >
+                <button type="submit" class="btn btn-outline-dark">
                     Create Category
                 </button>
                 <a href="javascript:void(0)" onclick="history.back()"
-                   class="btn btn-secondary px-6 py-2 rounded-md font-semibold text-gray-700 border border-gray-300 hover:bg-gray-100 transition text-center">
-                   Back
+                    class="btn btn-secondary px-6 py-2 rounded-md font-semibold text-gray-700 border border-gray-300 hover:bg-gray-100 transition text-center">
+                    Back
                 </a>
             </div>
         </form>

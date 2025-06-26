@@ -1,9 +1,8 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
@@ -14,7 +13,7 @@ class UsersTableSeeder extends Seeder
         $admin = User::firstOrCreate(
             ['email' => 'admin@gmail.com'],
             [
-                'name' => 'Admin',
+                'name'     => 'Admin',
                 'password' => bcrypt('admin123'),
             ]
         );
@@ -25,7 +24,7 @@ class UsersTableSeeder extends Seeder
 
         // Create regular users only if they don't exist
         if (User::count() <= 1) {
-             //     if only admin exists
+            //     if only admin exists
             User::factory()->count(10)->create()->each(function ($user) {
                 $userRole = Role::firstOrCreate(['name' => 'user']);
                 $user->assignRole($userRole);

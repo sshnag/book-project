@@ -2,7 +2,6 @@
 namespace App\Repositories;
 
 use App\Models\Category;
-use Illuminate\Pagination\Paginator;
 
 class CategoryRepository
 {
@@ -15,8 +14,6 @@ class CategoryRepository
     {
         return Category::create($data);
     }
-
-
 
     public function delete(Category $category)
     {

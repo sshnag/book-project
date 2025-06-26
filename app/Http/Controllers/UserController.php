@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use JeroenNoten\LaravelAdminLte\View\Components\Tool\Datatable;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+
 class UserController extends Controller
 {
     /**
@@ -16,19 +15,17 @@ class UserController extends Controller
         //User list table using Yajra datatable
         $users = User::paginate(10);
 
-         if ($request->ajax()) {
+        if ($request->ajax()) {
             return DataTables::of(User::with('roles'))
                 ->addColumn('role', fn($user) => $user->roles->pluck('name')->implode(', '))
                 ->addColumn('action', fn($user) => view('users.partials.action', compact('user'))->render())
                 ->rawColumns(['action'])
                 ->make(true);
         }
-                    $users=User::simplePaginate(5); //[pagination]
-
+        $users = User::simplePaginate(5); //[pagination]
 
         return view('user.index', compact('users'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -73,7 +70,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-     public function destroy(User $user)
+    public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User is archived!');

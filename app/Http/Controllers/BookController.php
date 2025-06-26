@@ -108,7 +108,7 @@ class BookController extends Controller
      * @param \App\Models\Book $book
      * @return \Illuminate\Contracts\View\View
      */
-        public function userShow(Book $book)
+    public function userShow(Book $book)
     {
         $book = Book::with(['author', 'category'])->findOrFail($book->id);
         return view('user.show', compact('book'));

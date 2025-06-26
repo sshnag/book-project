@@ -33,35 +33,35 @@
             </div>
 
             <div class="hero-image-wrap mt-4 mt-lg-0 text-center text-lg-end flex-shrink-0" style="max-width: 500px;">
-                <img src="{{ asset('images/hero3.jpeg') }}" alt="Stack of colorful books"
-                    class="hero-image " style="max-width: 100%; height: auto"
-                    />
+                <img src="{{ asset('images/hero3.jpeg') }}" alt="Stack of colorful books" class="hero-image "
+                    style="max-width: 100%; height: auto" />
             </div>
         </section>
     </div>
 
-<div class="container my-5">
-    <h3 class="text-center mb-4  animate-slide">
-      <strong> Top Categories</strong></h3>
-    <div class="row g-3">
-        @foreach ($featuredCategories as $category)
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <a href="#"
-                   class="d-block text-decoration-none category-card p-3 rounded-4 shadow-sm text-center h-100 position-relative overflow-hidden"
-                   style="background: linear-gradient(135deg, #ffc0cb, #ff69b4); transition: transform 0.3s ease;">
-                    <div class="icon-wrapper mb-2">
-                        <i class="bi bi-book" style="font-size: 1.5rem; color: white;"></i>
-                    </div>
-                    <span class="text-white fw-semibold d-block" style="font-size: 0.95rem;">
-                        {{ $category->name }}
-                    </span>
-                    <div class="hover-overlay position-absolute top-0 start-0 w-100 h-100"
-                         style="background: rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.3s;"></div>
-                </a>
-            </div>
-        @endforeach
+    <div class="container my-5">
+        <h3 class="text-center mb-4  animate-slide">
+            <strong> Top Categories</strong>
+        </h3>
+        <div class="row g-3">
+            @foreach ($featuredCategories as $category)
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <a href="#"
+                        class="d-block text-decoration-none category-card p-3 rounded-4 shadow-sm text-center h-100 position-relative overflow-hidden"
+                        style="background: linear-gradient(135deg, #ffc0cb, #ff69b4); transition: transform 0.3s ease;">
+                        <div class="icon-wrapper mb-2">
+                            <i class="bi bi-book" style="font-size: 1.5rem; color: white;"></i>
+                        </div>
+                        <span class="text-white fw-semibold d-block" style="font-size: 0.95rem;">
+                            {{ $category->name }}
+                        </span>
+                        <div class="hover-overlay position-absolute top-0 start-0 w-100 h-100"
+                            style="background: rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.3s;"></div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
     </div>
-</div>
 
     <!-- Featured Books -->
     <div class="container mb-5" id="featured">

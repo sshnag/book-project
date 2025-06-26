@@ -15,11 +15,11 @@ class ContactSeeder extends Seeder
         $faker = Faker::create();
         foreach (range(1, 20) as $index) {
             Contact::create([
-                'name'    => $faker->name,
-                'email'   => $faker->safeEmail(),
-                'message' => $faker->sentence(12),
-                'book_title'   => substr($faker->sentence(2), 0, -1),
-                'status'  => $faker->randomElement(['new', 'read', 'replied']),
+                'name'       => $faker->name,
+                'email'      => $faker->safeEmail(),
+                'message'    => $faker->sentence(12),
+                'book_title' => substr($faker->sentence(2), 0, -1),
+                'status'     => $faker->randomElement(['new', 'read', 'replied']),
 
             ]);
 

@@ -7,7 +7,7 @@
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-sm btn-danger ml-1"
-                onclick="return confirm('Are you sure you want to delete this author?')" title="Delete Author">
+            onclick="return confirm('Are you sure you want to delete this author?')" title="Delete Author">
             <i class="fas fa-trash-alt"></i>
         </button>
     </form>

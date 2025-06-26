@@ -1,13 +1,8 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Author;
-use Illuminate\Support\Str;
-use Faker\Factory as Faker;
-
-
+use Illuminate\Database\Seeder;
 
 class AuthorsTableSeeder extends Seeder
 {

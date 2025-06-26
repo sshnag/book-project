@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Author extends Model
-{   use SoftDeletes;
+{use SoftDeletes;
     use HasFactory;
 
     protected $fillable = [
@@ -26,5 +26,4 @@ class Author extends Model
     public function scopePopular($query)
     {
         return $query->where('book_count', '>', 10);
-    }
-}
+    }}

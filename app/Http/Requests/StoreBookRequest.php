@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,13 +22,13 @@ class StoreBookRequest extends FormRequest
     {
         return [
             //
-            'title'=>'required|string|max:255',
-            'description'=>'required|string',
-            'author_id'=>'required|exists:authors,id',
-            'category_id'=>'required|exists:categories,id',
-            'published_at'=>'nullable|date',
-            'file_path'=>'required|file|mimes:pdf|max:102400',
-            'cover_image'=>'nullable|image|mimes:png,jpg|max:20480',
+            'title'        => 'required|string|max:255',
+            'description'  => 'required|string',
+            'author_id'    => 'required|exists:authors,id',
+            'category_id'  => 'required|exists:categories,id',
+            'published_at' => 'nullable|date',
+            'file_path'    => 'required|file|mimes:pdf|max:102400',
+            'cover_image'  => 'nullable|image|mimes:png,jpg|max:20480',
         ];
     }
 }

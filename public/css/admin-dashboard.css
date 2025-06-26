@@ -2,14 +2,15 @@
 
 /* General Body & Typography */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8fafc; /* light gray background */
     color: #1f2937; /* dark slate */
     margin: 0;
     padding: 0;
 }
 
-h1, h5 {
+h1,
+h5 {
     color: #111827; /* very dark slate */
 }
 
@@ -18,7 +19,8 @@ h1.fw-bold {
     font-size: 2rem;
 }
 
-h5.fw-semibold, h5.fw-bold {
+h5.fw-semibold,
+h5.fw-bold {
     font-weight: 600;
 }
 
@@ -26,13 +28,13 @@ h5.fw-semibold, h5.fw-bold {
 .card {
     background-color: #fff;
     border-radius: 0.5rem; /* round corners */
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     border: none;
     margin-bottom: 1.5rem;
 }
 
 .card.shadow-sm {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 }
 
 /* Card Body */
@@ -223,33 +225,33 @@ form.d-inline {
 .pagination-wrapper {
     margin-top: 1rem;
 }
-  .btn-group .btn-sm {
-            margin: 0 2px;
-        }
+.btn-group .btn-sm {
+    margin: 0 2px;
+}
 
-        /* Make the card header more prominent */
-        .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            padding: 0.75rem 1.25rem;
-        }
+/* Make the card header more prominent */
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.75rem 1.25rem;
+}
 
-        /* Improve table row hover effect */
-        .table-hover tbody tr:hover {
-            background-color: rgba(0,0,0,.03);
-        }
+/* Improve table row hover effect */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
 
-        /* Style pagination links */
-        .pagination {
-            margin-bottom: 0;
-        }
-   #authors-table_wrapper .dataTables_filter input {
-            border-radius: 20px;
-            padding: 5px 15px;
-            border: 1px solid #ddd;
-        }
-        .badge-book-count {
-            font-size: 0.85em;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
+/* Style pagination links */
+.pagination {
+    margin-bottom: 0;
+}
+#authors-table_wrapper .dataTables_filter input {
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: 1px solid #ddd;
+}
+.badge-book-count {
+    font-size: 0.85em;
+    padding: 5px 10px;
+    border-radius: 20px;
+}

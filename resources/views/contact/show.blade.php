@@ -13,11 +13,11 @@
             <h5><strong>Email:</strong> {{ $contact->email }}</h5>
             <h5><strong>Book Title:</strong> {{ $contact->book_title ?? 'N/A' }}</h5>
             <h5><strong>Status:</strong>
-                <span class="badge
-                    @if($contact->status == 'new') bg-warning
+                <span
+                    class="badge
+                    @if ($contact->status == 'new') bg-warning
                     @elseif($contact->status == 'read') bg-info
-                    @elseif($contact->status == 'replied') bg-success
-                    @endif">
+                    @elseif($contact->status == 'replied') bg-success @endif">
                     {{ ucfirst($contact->status) }}
                 </span>
             </h5>

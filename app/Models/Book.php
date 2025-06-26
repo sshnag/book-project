@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-        protected $dates = ['published_at'];
+    protected $dates = ['published_at'];
     use SoftDeletes;
 
-
-   protected $fillable = [
-    'title',
-    'description',
-    'author_id',
-    'category_id',
-    'published_at',
-    'cover_image',
-    'file_path',
-];
+    protected $fillable = [
+        'title',
+        'description',
+        'author_id',
+        'category_id',
+        'published_at',
+        'cover_image',
+        'file_path',
+    ];
 
     public function author()
     {
