@@ -80,11 +80,7 @@ class BookController extends Controller
         $categories = Category::all();
 
         $books = Book::with('author', 'category')
-            ->when($request->title, fn($q) => $q->where('title', 'LIKE', '%' . $request->title . '%'))
-            ->when($request->author, fn($q) => $q->whereHas('author', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->author . '%')))
-            ->when($request->category, fn($q) => $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->category . '%')))
-            ->when($request->description, fn($q) => $q->where('description', 'LIKE', '%' . $request->description . '%'))
-            ->simplePaginate(5);
+           
 
         return view('search', compact('books', 'categories'));
     }
