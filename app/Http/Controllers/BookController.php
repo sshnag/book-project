@@ -1,12 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Requests\UpdateBookRequest;
 class BookController extends Controller
 {
 
@@ -24,71 +25,17 @@ class BookController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'description'  => 'required|string',
-            'author_id'    => 'required|exists:authors,id',
-            'category_id'  => 'required|exists:categories,id',
-            'published_at' => 'nullable|date',
-            'cover_image'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'file_path'    => 'required|file|mimes:pdf|max:10240',
-        ]);
-
-        $imagePath = $request->hasFile('cover_image')
-        ? $request->file('cover_image')->store('covers', 'public')
-        : null;
-
-        $filePath = $request->file('file_path')->store('books', 'public');
-
-        $book = Book::create([
-            'title'        => $validated['title'],
-            'description'  => $validated['description'],
-            'author_id'    => $validated['author_id'],
-            'category_id'  => $validated['category_id'],
-            'published_at' => $validated['published_at'] ?? null,
-            'cover_image'  => $imagePath,
-            'file_path'    => $filePath,
-        ]);
+        $book = Book::create($request->validated());
 
         // Debug the saved book
         return redirect()->route('admin.books.index')->with('success', 'Book added successfully!');
     }
 
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'description'  => 'required',
-            'author_id'    => 'required|exists:authors,id',
-            'category_id'  => 'required|exists:categories,id',
-            'published_at' => 'nullable|date',
-            'file_path'    => 'nullable|file|mimes:pdf|max:100000',
-            'cover_image'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        // File upload (PDF)
-        if ($request->hasFile('file_path')) {
-            if ($book->file_path) {
-                Storage::disk('public')->delete($book->file_path);
-            }
-            $validated['file_path'] = $request->file('file_path')->store('books', 'public');
-        }
-
-        // Cover Image upload
-        if ($request->hasFile('cover_image')) {
-            if ($book->cover_image) {
-                Storage::disk('public')->delete($book->cover_image);
-            }
-            $validated['cover_image'] = $request->file('cover_image')->store('covers', 'public');
-        } else {
-            // If no new image uploaded, preserve old one
-            $validated['cover_image'] = $book->cover_image;
-        }
-
-        $book->update($validated);
-
+        $book->update($request->validated());
         return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
     }
 
@@ -127,19 +74,19 @@ class BookController extends Controller
         return response()->download($file, $book->title . '.pdf');
     }
 
-   public function search(Request $request)
-{
-    //searching
-    $categories = Category::all();
+    public function search(Request $request)
+    {
+        //searching
+        $categories = Category::all();
 
-    $books = Book::with('author', 'category')
-        ->when($request->title, fn($q) => $q->where('title', 'LIKE', '%' . $request->title . '%'))
-        ->when($request->author, fn($q) => $q->whereHas('author', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->author . '%')))
-        ->when($request->category, fn($q) => $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->category . '%')))
-        ->when($request->description, fn($q) => $q->where('description', 'LIKE', '%' . $request->description . '%'))
-        ->simplePaginate(5);
+        $books = Book::with('author', 'category')
+            ->when($request->title, fn($q) => $q->where('title', 'LIKE', '%' . $request->title . '%'))
+            ->when($request->author, fn($q) => $q->whereHas('author', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->author . '%')))
+            ->when($request->category, fn($q) => $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $request->category . '%')))
+            ->when($request->description, fn($q) => $q->where('description', 'LIKE', '%' . $request->description . '%'))
+            ->simplePaginate(5);
 
-    return view('search', compact('books','categories'));
-}
+        return view('search', compact('books', 'categories'));
+    }
 
 }
