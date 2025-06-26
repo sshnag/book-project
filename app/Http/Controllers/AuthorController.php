@@ -5,23 +5,24 @@ use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\StoreAuthorRequest;
+use App\Repositories\AuthorRepository;
 
 class AuthorController extends Controller
 {
-
+    protected $authorrepo;
+    public function __construct(AuthorRepository $authorrepo){
+        $this->authorrepo=$authorrepo;
+    }
     public function index(Request $request)
     {
-        //Author lists using Yajra Datatable
-         if ($request->ajax()) {
-        $authors = Author::withCount('books');
+        if ($request->ajax()) {
+            return $this->authorrepo->getDataTable();
+            # code...
+        }
 
-        return DataTables::eloquent($authors)
-            ->addColumn('action', function ($author) {
-                return view('authors.partials.action', compact('author'))->render();
-            })
-            ->rawColumns(['action'])
-            ->toJson();
-    }
+
+
 
     return view('authors.index');
     }
@@ -31,13 +32,9 @@ class AuthorController extends Controller
         return view('authors.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request)
     {
-        //storing authors data
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        Author::create($request->all());
+        $this->authorrepo->create($request->validated());
         return redirect()->route('admin.authors.index')->with('success', 'Author Added');
     }
     public function show(Author $author)
@@ -59,7 +56,7 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         //delete
-        $author->delete();
+        $this->authorrepo->delete($author);
         return redirect()->route('admin.authors.index')->with('success', 'Author is Archieved!');
     }
 

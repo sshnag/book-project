@@ -4,26 +4,19 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Repositories\CategoryRepository;
 class CategoryController extends Controller
 {
+    protected $categoryrepo;
+    public function __construct(CategoryRepository $categoryrepo){
+        $this->categoryrepo=$categoryrepo;
 
+    }
     public function index()
     {
-
-        // category query without caching
-        $categories = Category::query()
-            ->orderBy('name')
-            ->get()
-            ->map(function ($category) {
-                if (! is_object($category)) {
-                    logger()->error('Invalid category found', ['category' => $category]);
-                    return null;
-                }
-                return $category;
-            })
-            ->filter();
-            $categories=Category::simplePaginate(5); //[pagination]
-        return view('categories.index', compact('categories'));
+        $categories=$this->categoryrepo->getAllPaginated();
+        return view('categories.index',compact('categories'))->with('success','New Category Added!');
 
     }
     public function create()
@@ -31,12 +24,9 @@ class CategoryController extends Controller
         return view('categories.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        Category::create($validated);
+       $this->categoryrepo->create($request->validated());
         return redirect()->route('admin.categories.index')->with('success', 'Category Added');
     }
     public function show(Category $categories)
@@ -55,14 +45,13 @@ class CategoryController extends Controller
 // }
     public function edit($id)
     {
-        $category = Category::find($id);
-        dd($category);
+
         return view('categories.edit', compact('category'));
     }
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Category is archieved!');
+        $this->categoryrepo->delete($category);
+            return redirect()->route('admin.categories.index')->with('success', 'Category is archieved!');
     }
 
 }
