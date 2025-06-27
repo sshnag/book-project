@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
     {
         // First check if admin already exists
         $admin = User::firstOrCreate(
-            ['email' => 'admin@gmail.com'],
+            ['email' => 'sadmin@gmail.com'],
             [
                 'name'     => 'Admin',
                 'password' => bcrypt('admin123'),

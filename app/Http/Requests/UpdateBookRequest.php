@@ -27,8 +27,8 @@ class UpdateBookRequest extends FormRequest
             'author_id'    => 'required|exists:authors,id',
             'category_id'  => 'required|exists:categories,id',
             'published_at' => 'nullable|date',
-            'file_path'    => 'required|file|mimes:pdf|max:102400',
-            'cover_image'  => 'nullable|image|mimes:png,jpg|max:20480',
+            'file_path'    => 'sometimes|file|mimes:pdf|max:102400',
+            'cover_image'  => 'sometimes|image|mimes:png,jpg|max:20480',
         ];
     }
 }

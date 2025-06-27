@@ -87,6 +87,7 @@ class BookController extends Controller
         //file handling through service
         $fileData  = $this->bookservice->handleFileUploads($request, $book);
         $validated = array_merge($validated, $fileData);
+      $book->update($validated);
         return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
     }
 
@@ -111,7 +112,7 @@ class BookController extends Controller
     public function userShow(Book $book)
     {
         $book = Book::with(['author', 'category'])->findOrFail($book->id);
-        return view('user.show', compact('book'));
+        return view('user.show', data: compact(var_name: 'book'));
     }
 
     /**
@@ -157,5 +158,8 @@ class BookController extends Controller
         }
         return response()->download($file, $book->title . '.pdf');
     }
+    
+
+
 
 }

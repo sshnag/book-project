@@ -73,13 +73,13 @@
                             <td>{{ $book->category->name ?? 'N/A' }}</td>
                             <td>
                                 <a href="{{ route('admin.books.edit', $book->id) }}"
-                                    class="btn btn-sm btn-outline-primary">Edit</a>
+                                    class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                        onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -135,7 +135,7 @@
                             size: 14
                         },
                         bodyFont: {
-                            size: 12
+                            size: 10
                         }
                     }
                 },

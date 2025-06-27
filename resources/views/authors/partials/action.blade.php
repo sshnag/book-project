@@ -6,7 +6,7 @@
     <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST" class="d-inline">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-sm btn-danger ml-1"
+        <button type="submit" class="btn btn-sm btn-outline-danger ml-1"
             onclick="return confirm('Are you sure you want to delete this author?')" title="Delete Author">
             <i class="fas fa-trash-alt"></i>
         </button>

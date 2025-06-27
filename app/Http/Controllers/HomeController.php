@@ -26,8 +26,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         //retrieving data to display in home page
-        $books              = Book::latest('created_at')->paginate(6);
-        $featuredCategories = Category::latest('created_at')->paginate(6);
+        $books              = Book::latest('created_at')->simplePaginate(6);
+        $featuredCategories = Category::latest('created_at')->simplePaginate(6);
         $featuredBooks      = Book::inRandomOrder()->take(6)->get();                   // random featured books
         $popularBooks       = Book::orderBy('download_count', 'desc')->take(6)->get(); // example based on views
         $categories         = Category::all();
