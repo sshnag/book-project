@@ -9,24 +9,27 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        // First check if admin already exists
-        $admin = User::firstOrCreate(
+        // Create or get the superadmin user
+        $superadmin = User::firstOrCreate(
             ['email' => 'sadmin@gmail.com'],
             [
-                'name'     => 'Admin',
+                'name'     => 'Super Admin',
                 'password' => bcrypt('admin123'),
             ]
         );
 
-        // Get or create admin role
-        $adminRole = Role::firstOrCreate(['name' => 'admin']);
-        $admin->assignRole($adminRole);
+        // Create roles if they don't exist
+        $superadminRole = Role::firstOrCreate(['name' => 'superadmin']);
+        $userRole       = Role::firstOrCreate(['name' => 'user']);
 
-        // Create regular users only if they don't exist
+        // Assign only if not already assigned
+        if (! $superadmin->hasRole('superadmin')) {
+            $superadmin->assignRole($superadminRole);
+        }
+
+        // Create additional users if only superadmin exists
         if (User::count() <= 1) {
-            //     if only admin exists
-            User::factory()->count(10)->create()->each(function ($user) {
-                $userRole = Role::firstOrCreate(['name' => 'user']);
+            User::factory()->count(10)->create()->each(function ($user) use ($userRole) {
                 $user->assignRole($userRole);
             });
         }

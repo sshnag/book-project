@@ -12,25 +12,40 @@ class RolePermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Define permission names
+        // Define permissions
         $permissions = [
             'manage books',
             'download books',
             'manage authors',
             'manage categories',
+            'assign bookadmin role',
         ];
 
-        // Creatingg permissions
+        // Create permissions
         foreach ($permissions as $perm) {
-            Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
+            Permission::firstOrCreate([
+                'name' => $perm,
+                'guard_name' => 'web',
+            ]);
         }
 
-        // Creating roles
-        $admin = Role::firstOrCreate(['name' => 'admin']);
-        $user  = Role::firstOrCreate(['name' => 'user']);
+        // Create roles
+        $superadmin = Role::firstOrCreate(['name' => 'superadmin']);
+        $bookadmin  = Role::firstOrCreate(['name' => 'bookadmin']);
+        $user       = Role::firstOrCreate(['name' => 'user']);
 
-        // Assigning permissions
-        $user->givePermissionTo('download books');
-        $admin->givePermissionTo(Permission::all());
+        // Assign all permissions to superadmin
+        $superadmin->syncPermissions(Permission::all());
+
+        // Assign limited permissions to bookadmin
+        $bookadmin->syncPermissions([
+            'manage books',
+            'download books',
+        ]);
+
+        // Assign basic permission to users
+        $user->syncPermissions([
+            'download books',
+        ]);
     }
 }
