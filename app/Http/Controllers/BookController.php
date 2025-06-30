@@ -8,7 +8,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Repositories\BookRepository;
 use App\Services\BookService;
-
+use Illuminate\Http\Request;
 class BookController extends Controller
 {
     protected $bookrepo;
@@ -157,6 +157,15 @@ class BookController extends Controller
             abort(404, 'File Not Found!');
         }
         return response()->download($file, $book->title . '.pdf');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->only(['title', 'author', 'category', 'description']);
+
+        $books = $this->bookrepo->searchBooks($filters, 8); // paginate 8 per page for example
+
+        return view('books.search-results', compact('books'));
     }
 
 }

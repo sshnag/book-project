@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
         <h2>Add New Author</h2>
+            <a href="javascript:void(0)" onclick="history.back()" class="btn btn-secondary mt-3">Back</a>
+            </div>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -24,7 +27,6 @@
             </div>
 
             <button type="submit" class="btn btn-outline-dark mt-3">Create Author</button>
-            <a href="javascript:void(0)" onclick="history.back()" class="btn btn-secondary mt-3">Back</a>
         </form>
     </div>
 @endsection

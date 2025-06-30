@@ -34,10 +34,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categoryrepo->getAllPaginated();
-        return view('categories.index', compact('categories'))->with('success', 'New Category Added!');
+        return view('categories.index')->with('success', 'New Category Added!');
 
     }
+
+    public function getDataTable(CategoryRepository $categoryrepo)
+{
+    return $categoryrepo->getDataTable();
+}
 
     /**
      * Summary of create

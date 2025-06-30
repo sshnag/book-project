@@ -1,13 +1,12 @@
 <div class="btn-group" role="group">
     <!-- Edit Button -->
 
-
+@include('sweetalert::alert')
     <!-- Delete Button -->
-    <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST" class="d-inline">
+    <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST" class="d-inline delete-form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-sm btn-outline-danger ml-1"
-            onclick="return confirm('Are you sure you want to delete this author?')" title="Delete Author">
+        <button class="btn btn-sm btn-outline-danger ml-1">
             <i class="fas fa-trash-alt"></i>
         </button>
     </form>

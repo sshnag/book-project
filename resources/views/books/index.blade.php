@@ -51,7 +51,7 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
-                                    class="d-inline-block" onsubmit="return confirm('Are you sure to delete this book?');">
+                                    class="d-inline-block delete-form" >
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-outline-danger" title="Delete Book">
@@ -83,3 +83,32 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
 @endpush
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    {{-- SweetAlert confirm delete --}}
+    <script>
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'This category will be archieved!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endsection
+
+

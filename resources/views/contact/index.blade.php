@@ -38,7 +38,8 @@
                                         @csrf
                                         @method('PATCH')
                                         <select name="status" onchange="this.form.submit()"
-                                            class="form-select form-select-sm">
+                                            class="form-select form-select-sm"
+                                            @if (in_array($contact->status, ['read', 'replied'])) disabled @endif>
                                             <option value="new" {{ $contact->status == 'new' ? 'selected' : '' }}>New
                                             </option>
                                             <option value="read" {{ $contact->status == 'read' ? 'selected' : '' }}>Read
@@ -46,6 +47,10 @@
                                             <option value="replied" {{ $contact->status == 'replied' ? 'selected' : '' }}>
                                                 Replied</option>
                                         </select>
+                                        @if (in_array($contact->status, ['read', 'replied']))
+                                            <small class="text-muted">Status locked</small>
+                                        @endif
+
                                     </form>
                                 </td>
                                 <td class="text-center">
@@ -55,8 +60,7 @@
                                     </a>
 
                                     <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST"
-                                        class="d-inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this contact message?');">
+                                        class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -64,7 +68,6 @@
                                         </button>
                                     </form>
                                 </td>
-
                             </tr>
                         @empty
                             <tr>
@@ -79,4 +82,31 @@
             {{ $contacts->links() }}
         </div>
     </div>
+@endsection
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    {{-- SweetAlert confirm delete --}}
+    <script>
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'This request will be archieved!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

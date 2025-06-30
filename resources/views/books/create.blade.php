@@ -1,8 +1,12 @@
 @extends('adminlte::page')
 @section('content')
     <div class="container book-form">
-        <h2 class="mb-4">{{ isset($book) ? 'Edit' : 'Add' }} Book</h2>
+                    <div class="d-flex justify-content-between align-items-center">
 
+        <h2 class="mb-4">{{ isset($book) ? 'Edit' : 'Add' }} Book</h2>
+                        <a href="javascript:void(0)" onclick="history.back()" class="btn btn-secondary">Cancel</a>
+
+                    </div>
         <form action="{{ isset($book) ? route('admin.books.update', $book->id) : route('admin.books.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
@@ -116,7 +120,6 @@
                 <button type="submit" class="btn btn-outline-dark">
                     {{ isset($book) ? 'Update' : 'Save' }} Book
                 </button>
-                <a href="javascript:void(0)" onclick="history.back()" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

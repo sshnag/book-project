@@ -1,7 +1,8 @@
 <?php
 
 return [
-
+           RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+               'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     /*
     |--------------------------------------------------------------------------
     | Application Name

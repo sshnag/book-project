@@ -7,6 +7,7 @@ class BookRepository
 {
     public function getAllPaginated($perPage = 5)
     {
+
         return Book::with(['author', 'category'])->latest()->simplePaginate($perPage);
 
     }
@@ -14,13 +15,18 @@ class BookRepository
     {
         return Book::with(['author', 'category'])->findOrFail($id);
     }
-    public function searchBooks($filters, $perpage = 5)
-    {
-        return Book::with('author', 'category')
-            ->when(['title'] ?? null, fn($q) => $q->where('title', 'LIKE', '%' . $filters['title'] . '%'))
-            ->when(['author'] ?? null, fn($q) => $q->whereHas('author', fn($q2) => $q2->where('name', 'LIKE', '%' . $filters['author'] . '%')))
-            ->when(['category'] ?? null, fn($q) => $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $filters['category'] . '%')))
-            ->when(['description'] ?? null, fn($q) => $q->where('description', 'LIKE', '%' . $filters['description'] . '%'))
-            ->simplePaginate($perpage);
-    }
+    public function searchBooks($filters, $perPage = 5)
+{
+    return Book::with('author', 'category')
+        ->when($filters['title'] ?? null, fn($q, $value) =>
+            $q->where('title', 'LIKE', '%' . $value . '%'))
+        ->when($filters['author'] ?? null, fn($q, $value) =>
+            $q->whereHas('author', fn($q2) => $q2->where('name', 'LIKE', '%' . $value . '%')))
+        ->when($filters['category'] ?? null, fn($q, $value) =>
+            $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $value . '%')))
+        ->when($filters['description'] ?? null, fn($q, $value) =>
+            $q->where('description', 'LIKE', '%' . $value . '%'))
+        ->simplePaginate($perPage);
+}
+
 }

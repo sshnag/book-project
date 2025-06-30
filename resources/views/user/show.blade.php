@@ -58,7 +58,8 @@
 
                 {{-- Buttons side by side --}}
                 <div class="mt-4 d-flex gap-3 align-items-center">
-                    @auth
+                    @can('download books')
+
                         <a href="{{ route('user.books.download', $book->id) }}"
                             class="btn btn-outline-dark btn-back rounded-pill px-4" {{ $book->title }}">
                             <i class="fas fa-download me-2" aria-hidden="true"></i> Download PDF
@@ -66,7 +67,7 @@
                     @else
                         <p class="text-danger mt-3 mb-0" role="alert">Please <a href="{{ route('login') }}"
                                 class="text-decoration-underline">log in</a> to download this book.</p>
-                    @endauth
+                    @endcan
 
                     <a href="{{ route('home') }}" class="btn btn-dark btn-back rounded-pill">
                         Back

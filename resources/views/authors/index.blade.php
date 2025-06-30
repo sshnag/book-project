@@ -5,14 +5,15 @@
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="fw-bold text-dark">Authors</h1>
-        <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-dark font-weight-bold"
-            style="border-radius: 50px;">
+        <a href="{{ route('admin.authors.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
             <i class="fas fa-plus"></i> Add New Author
         </a>
     </div>
 @stop
 
 @section('content')
+    {{-- Optional: Remove old Bootstrap alert and rely on SweetAlert --}}
+    {{--
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
             {{ session('success') }}
@@ -21,6 +22,7 @@
             </button>
         </div>
     @endif
+    --}}
 
     <div class="card shadow-sm mt-4">
         <div class="card-body">
@@ -45,26 +47,42 @@
 @endpush
 
 @push('js')
+    <!-- jQuery & DataTables -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
-            $('#authors-table').DataTable({
+            // Delete confirmation handler function
+            function deleteHandler(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'This author will be archived!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            }
+
+            // Initialize DataTable
+            var table = $('#authors-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin.authors.index') }}",
-                columns: [{
-                        data: 'id',
-                        name: 'id',
-                        width: '5%',
-                        className: 'align-middle'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name',
-                        className: 'align-middle font-weight-bold'
-                    },
+                columns: [
+                    { data: 'id', name: 'id', width: '5%', className: 'align-middle' },
+                    { data: 'name', name: 'name', className: 'align-middle font-weight-bold' },
                     {
                         data: 'books_count',
                         name: 'books_count',
@@ -74,14 +92,7 @@
                             return `<span class="badge badge-book-count bg-primary">${data} books</span>`;
                         }
                     },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center align-middle',
-                        width: '15%'
-                    }
+                    { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center align-middle', width: '15%' }
                 ],
                 language: {
                     lengthMenu: "Show _MENU_ entries",
@@ -98,23 +109,32 @@
                         previous: '<i class="fas fa-chevron-left"></i>'
                     }
                 },
-                order: [
-                    [0, 'asc']
-                ],
+                order: [[0, 'asc']],
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50],
                 drawCallback: function(settings) {
-                    // Add hover effect to rows
+                    // Row hover effect
                     $('#authors-table tbody tr').hover(
-                        function() {
-                            $(this).css('background-color', '#f8f9fa');
-                        },
-                        function() {
-                            $(this).css('background-color', '');
-                        }
+                        function() { $(this).css('background-color', '#f8f9fa'); },
+                        function() { $(this).css('background-color', ''); }
                     );
+
+                    // Attach SweetAlert delete confirmation to delete buttons
+                    $('#authors-table .delete-form').off('submit').on('submit', deleteHandler);
                 }
             });
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
 @endpush

@@ -1,29 +1,21 @@
 @extends('adminlte::page')
 
 @section('title', 'Users List')
-
 @section('content_header')
+
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="fw-bold text-dark"> Users List</h1>
-
-</div>@endsection
-
-{{-- @section('css')
-    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
-@endsection --}}
-
+        <h1 class="fw-bold text-dark"> Books List</h1>
+        <a href="{{ route('admin.users.create') }}" class="btn btn-outline-dark font-weight-bold" style="border-radius: 50px;">
+            <i class="fas fa-plus"></i> Add New User
+        </a>
+    </div>
+@endsection
+@include('sweetalert::alert')
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
     <div class="card shadow-sm mt-4">
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover mb-0">
-
                     <thead class="table-light">
                         <tr>
                             <th>Name</th>
@@ -32,7 +24,6 @@
                                 <th>Role</th>
                                 <th style="width: 120px">Actions</th>
                             @endcan
-
                         </tr>
                     </thead>
                     <tbody>
@@ -41,40 +32,24 @@
                                 <td>{{ $user->name ?? 'N/A' }}</td>
                                 <td>{{ $user->email ?? 'N/A' }}</td>
                                 <td>
-                                    @can('assign roles')
-                                        <form action="{{ route('admin.users.assignRole', $user->id) }}" method="post"
-                                            class="d-inline me-1">
-                                            @csrf
-                                            <select name="role" class="form-select form-select-sm"
-                                                onchange="this.form.submit()">
-                                                <option disabled>Assign Role</option>
-                                                @foreach (['user', 'bookadmin'] as $role)
-                                                    <option value="{{ $role }}"
-                                                        {{ $user->hasRole($role) ? 'selected' : '' }}>
-                                                        {{ ucfirst($role) }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </form>
-                                    @endcan
+                                    {{ implode(', ', $user->getRoleNames()->toArray()) }}
+                                    <br>
+                                    <small class="text-muted">
+                                        Permissions:
+                                        {{ implode(', ', $user->getAllPermissions()->pluck('name')->toArray()) }}
+                                    </small>
                                 </td>
-                                @can('manage users')
-                                    <td>
-                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-outline-danger"
-                                                onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
-                                    @endcan
+                                <td>
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                        class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
+
                         @empty
                             <tr>
-                                <td colspan="3" class="text-center">No users found.</td>
+                                <td colspan="4" class="text-center">No users found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -85,4 +60,44 @@
             {{ $users->links() }}
         </div>
     </div>
+@endsection
+{{-- <button onclick="Swal.fire('Hello!', 'It works!', 'success')">Test Alert</button> --}}
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- SweetAlert flash success --}}
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
+    {{-- SweetAlert confirm delete --}}
+    <script>
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'This user will be archieved!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

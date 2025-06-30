@@ -75,7 +75,7 @@
                     <div class="card-body">
                         <h5 class="card-title pink-text">{{ $book->title }}</h5>
                         <p class="text-muted mb-2 small">By {{ $book->author->name ?? 'Unknown' }}</p>
-                        <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-pink w-100"
+                        <a href="{{ route('books.show', $book->id) }}" class="btn btn-sm btn-pink w-100"
                             aria-label="View details of {{ $book->title }}">View Details</a>
                     </div>
                 </div>
@@ -184,3 +184,17 @@
         });
     </script>
 @endpush
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if ($showReplyMessage ?? false)
+        Swal.fire({
+            icon: 'info',
+            title: 'Your message has been replied!',
+            text: 'An admin has replied to your contact request.',
+            confirmButtonText: 'OK'
+        });
+    @endif
+</script>
+@endpush
+
