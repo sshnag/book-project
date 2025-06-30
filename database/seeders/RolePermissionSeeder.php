@@ -19,12 +19,14 @@ class RolePermissionSeeder extends Seeder
             'manage authors',
             'manage categories',
             'assign bookadmin role',
+            'manage users',
+            'assign roles'
         ];
 
         // Create permissions
         foreach ($permissions as $perm) {
             Permission::firstOrCreate([
-                'name' => $perm,
+                'name'       => $perm,
                 'guard_name' => 'web',
             ]);
         }
@@ -41,6 +43,8 @@ class RolePermissionSeeder extends Seeder
         $bookadmin->syncPermissions([
             'manage books',
             'download books',
+            'manage authors',
+            'manage categories',
         ]);
 
         // Assign basic permission to users

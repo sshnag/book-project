@@ -22,9 +22,22 @@ class UserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $users = User::simplePaginate(5); //[pagination]
+        $users = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'superadmin');
+        })->simplePaginate(5);
 
         return view('user.index', compact('users'));
+    }
+
+    public function assignRole(Request $request,User $user){
+        $this->authorize('assign roles');
+        $request->validate([
+            'role'=> 'required|exists:roles,name',
+        ]
+
+        );
+        $user->syncRoles([$request->role]);
+        return back()->with('success','Role Updated Successfully');
     }
 
     /**
@@ -72,6 +85,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('manage users');
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User is archived!');
     }

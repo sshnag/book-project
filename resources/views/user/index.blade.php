@@ -28,7 +28,11 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th style="width: 120px">Actions</th>
+                            @can('manage users')
+                                <th>Role</th>
+                                <th style="width: 120px">Actions</th>
+                            @endcan
+
                         </tr>
                     </thead>
                     <tbody>
@@ -37,15 +41,35 @@
                                 <td>{{ $user->name ?? 'N/A' }}</td>
                                 <td>{{ $user->email ?? 'N/A' }}</td>
                                 <td>
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('Are you sure?')">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                                    @can('assign roles')
+                                        <form action="{{ route('admin.users.assignRole', $user->id) }}" method="post"
+                                            class="d-inline me-1">
+                                            @csrf
+                                            <select name="role" class="form-select form-select-sm"
+                                                onchange="this.form.submit()">
+                                                <option disabled>Assign Role</option>
+                                                @foreach (['user', 'bookadmin'] as $role)
+                                                    <option value="{{ $role }}"
+                                                        {{ $user->hasRole($role) ? 'selected' : '' }}>
+                                                        {{ ucfirst($role) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    @endcan
+                                </td>
+                                @can('manage users')
+                                    <td>
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-outline-danger"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

@@ -118,10 +118,16 @@
                 datasets: [{
                     label: 'Downloads',
                     data: {!! json_encode($downloads) !!},
-                    backgroundColor: '#92C5F9',
+                    backgroundColor: [
+                        '#92C5F9', '#FFC20A', '#17BECF', '#FF6B6B', '#A0E7E5',
+                        '#B4F8C8', '#FFAEBC', '#D291BC', '#FFB347', '#E6E6FA'
+                    ],
                     borderRadius: 6,
-                    barThickness: 20
+                    categoryPercentage: 0.5,
+                    barPercentage: 0.7
                 }]
+
+
             },
             options: {
                 responsive: true,

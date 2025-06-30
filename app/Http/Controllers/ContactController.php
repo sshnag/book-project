@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    // Frontend contact form
+    // Frontend ctact form
     public function create()
     {
         return view('contact');
@@ -29,7 +29,7 @@ class ContactController extends Controller
             'status'     => 'new',
         ]);
 
-    return redirect()->back()->with('success', 'Thanks for reaching out! We’ll reply as soon as possible.');
+        return redirect()->back()->with('success', 'Thanks for reaching out! We’ll reply as soon as possible.');
     }
 
     // Admin contact management
@@ -40,7 +40,7 @@ class ContactController extends Controller
         return view('contact.index', compact('contacts'));
 
     }
-       public function destroy($id)
+    public function destroy($id)
     {
         $contact = Contact::findOrFail($id);
 
@@ -49,31 +49,31 @@ class ContactController extends Controller
         return redirect()->route('admin.contacts.index')->with('success', 'Contact message deleted successfully.');
     }
     public function updateStatus($id, Request $request)
-{
-    //updating the status of messages only admin can edit
-    $contact = Contact::findOrFail($id);
+    {
+        //updating the status of messages only admin can edit
+        $contact = Contact::findOrFail($id);
 
-    $request->validate([
-        'status' => 'required|in:new,read,replied',
-    ]);
+        $request->validate([
+            'status' => 'required|in:new,read,replied',
+        ]);
 
-    $contact->status = $request->status;
-    $contact->save();
-
-    return redirect()->route('admin.contacts.index')->with('success', 'Status updated successfully.');
-}
-public function show($id)
-{
-    $contact = Contact::findOrFail($id);
-
-    //  Auto mark as "read" when admin views it
-    if ($contact->status === 'new') {
-        $contact->status = 'read';
+        $contact->status = $request->status;
         $contact->save();
-    }
 
-    return view('contact.show', compact('contact'));
-}
+        return redirect()->route('admin.contacts.index')->with('success', 'Status updated successfully.');
+    }
+    public function show($id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        //  Auto mark as "read" when admin views it
+        if ($contact->status === 'new') {
+            $contact->status = 'read';
+            $contact->save();
+        }
+
+        return view('contact.show', compact('contact'));
+    }
 
     // public function getData(Request $request)
     // {

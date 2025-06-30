@@ -87,7 +87,7 @@ class BookController extends Controller
         //file handling through service
         $fileData  = $this->bookservice->handleFileUploads($request, $book);
         $validated = array_merge($validated, $fileData);
-      $book->update($validated);
+        $book->update($validated);
         return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
     }
 
@@ -158,8 +158,5 @@ class BookController extends Controller
         }
         return response()->download($file, $book->title . '.pdf');
     }
-    
-
-
 
 }

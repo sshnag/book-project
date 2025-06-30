@@ -29,7 +29,7 @@ Route::middleware(['auth', 'no-cache'])->prefix('user')->name('user.')->group(fu
 });
 
 // Admin routes
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:superadmin|bookadmin'])->group(function () {
     Route::resource('books', BookController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::get('/books/{book}', [BookController::class, 'adminShow'])->name('books.show');
 
@@ -42,6 +42,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'no-cache', 'role:ad
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class);
-
+    Route::post('/users/{user}/assign-role', [UserController::class, 'assignRole'])->name('users.assignRole'); // ✅ FIXED
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

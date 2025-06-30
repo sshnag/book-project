@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     protected function redirectBasedOnRole(User $user)
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin|bookadmin')) {
             return redirect()->intended(route('admin.dashboard'));
         }
 

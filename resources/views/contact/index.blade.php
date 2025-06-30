@@ -22,7 +22,6 @@
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>ID</th>
                             <th>Email</th>
                             <th>Message</th>
                             <th>Status</th>
@@ -32,10 +31,8 @@
                     <tbody>
                         @forelse ($contacts as $contact)
                             <tr>
-                                <td>{{ $contact->id }}</td>
                                 <td>{{ $contact->email }}</td>
                                 <td>{{ Str::limit($contact->message, 50) }}</td>
-
                                 <td>
                                     <form action="{{ route('admin.contacts.updateStatus', $contact->id) }}" method="POST">
                                         @csrf
