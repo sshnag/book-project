@@ -29,7 +29,6 @@
             <table id="authors-table" class="table table-hover w-100">
                 <thead class="table-light">
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th class="text-center">Books</th>
                         <th>Actions</th>
@@ -81,7 +80,6 @@
                 serverSide: true,
                 ajax: "{{ route('admin.authors.index') }}",
                 columns: [
-                    { data: 'id', name: 'id', width: '5%', className: 'align-middle' },
                     { data: 'name', name: 'name', className: 'align-middle font-weight-bold' },
                     {
                         data: 'books_count',

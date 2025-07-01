@@ -20,7 +20,7 @@ class ContactRepository
 
     public function getAllPaginated($perPage = 10)
     {
-        return Contact::orderBy('created_at', 'desc')->simplePaginate($perPage);
+        return Contact::orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     public function find($id)

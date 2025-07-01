@@ -22,8 +22,8 @@ class DashboardController extends Controller
         $labels    = $categories->pluck('name');
         $downloads = $categories->pluck('download_count');
 
-        $books = Book::latest()->simplePaginate(5);
-        $books = Book::simplePaginate(5); // Pagination for the books
+        $books = Book::latest()->paginate(5);
+        $books = Book::paginate(5); // Pagination for the books
 
         return view('admin.dashboard', compact(
             'bookCount',

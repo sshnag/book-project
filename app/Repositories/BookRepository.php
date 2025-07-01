@@ -8,7 +8,7 @@ class BookRepository
     public function getAllPaginated($perPage = 5)
     {
 
-        return Book::with(['author', 'category'])->latest()->simplePaginate($perPage);
+        return Book::with(['author', 'category'])->latest()->paginate($perPage);
 
     }
     public function findwithRelation($id)
@@ -26,7 +26,7 @@ class BookRepository
             $q->whereHas('category', fn($q2) => $q2->where('name', 'LIKE', '%' . $value . '%')))
         ->when($filters['description'] ?? null, fn($q, $value) =>
             $q->where('description', 'LIKE', '%' . $value . '%'))
-        ->simplePaginate($perPage);
+        ->paginate($perPage);
 }
 
 }

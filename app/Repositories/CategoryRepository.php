@@ -20,7 +20,7 @@ class CategoryRepository
 
     public function getAllPaginated($perPage = 5)
     {
-        return Category::withCount('books')->orderBy('name')->simplePaginate($perPage);
+        return Category::withCount('books')->orderBy('name')->paginate($perPage);
     }
 
     public function create(array $data)
