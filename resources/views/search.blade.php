@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="mt-3 mt-md-0">
-                            <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-outline-pink"
+                            <a href="{{ route('books.show', $book->id) }}" class="btn btn-sm btn-outline-pink"
                                 aria-label="View details of {{ $book->title }}">View</a>
                         </div>
                     </div>

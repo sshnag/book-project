@@ -2,6 +2,8 @@
     <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-sm btn-outline-primary me-2">
         <i class="fas fa-edit"></i>
     </a>
+    @can('delete')
+
     <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" class="d-inline delete-form">
         @csrf
         @method('DELETE')
@@ -9,4 +11,6 @@
             <i class="fas fa-trash-alt"></i>
         </button>
     </form>
+    @endcan
+
 </div>

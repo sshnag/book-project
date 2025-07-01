@@ -50,6 +50,8 @@
                                     title="Edit Book">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                @can('delete',$book)
+
                                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
                                     class="d-inline-block delete-form" >
                                     @csrf
@@ -58,6 +60,8 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
+
+                                @endcan
                             </td>
                         </tr>
                     @empty

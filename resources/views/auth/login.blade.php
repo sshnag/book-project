@@ -13,7 +13,7 @@
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email Address</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                        name="email" value="{{ old('email') }}"  autocomplete="email" autofocus
                         placeholder="example@gmail.com">
                     @error('email')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -23,7 +23,7 @@
                 <div class="mb-4">
                     <label for="password" class="form-label fw-semibold">Password</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                        name="password" required autocomplete="current-password" placeholder="Enter your password">
+                        name="password"  autocomplete="current-password" placeholder="Enter your password">
                     @error('password')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror

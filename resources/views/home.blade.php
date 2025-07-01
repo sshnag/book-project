@@ -95,7 +95,7 @@
                     <div class="card-body">
                         <h5 class="card-title pink-text">{{ $book->title }}</h5>
                         <p class="text-muted mb-2 small">By {{ $book->author->name ?? 'Unknown' }}</p>
-                        <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-sm btn-pink-alt w-100"
+                        <a href="{{ route('books.show', $book->id) }}" class="btn btn-sm btn-pink-alt w-100"
                             aria-label="View details of {{ $book->title }}">View Details</a>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                             <p class="card-text small">{{ Str::limit($book->description, 100) }}</p>
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="badge bg-pink text-light">⭐ {{ rand(40, 50) / 10 }}</span>
-                                <a href="{{ route('user.books.show', $book->id) }}" class="btn btn-outline-pink btn-sm"
+                                <a href="{{ route('books.show', $book->id) }}" class="btn btn-outline-pink btn-sm"
                                     aria-label="View details of {{ $book->title }}">View</a>
                             </div>
                         </div>
@@ -143,7 +143,7 @@
                             <div class="card-body">
                                 <h6 class="card-title pink-text">{{ $related->title }}</h6>
                                 <p class="text-muted small mb-2">By {{ $related->author->name ?? 'Unknown' }}</p>
-                                <a href="{{ route('user.books.userShow', $related->id) }}"
+                                <a href="{{ route('books.userShow', $related->id) }}"
                                     class="btn btn-sm btn-outline-pink w-100"
                                     aria-label="View details of {{ $related->title }}">View Details</a>
                             </div>
@@ -187,14 +187,16 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    @if ($showReplyMessage ?? false)
-        Swal.fire({
-            icon: 'info',
-            title: 'Your message has been replied!',
-            text: 'An admin has replied to your contact request.',
-            confirmButtonText: 'OK'
-        });
-    @endif
+   @if (session('replied_notification'))
+<script>
+    Swal.fire({
+        icon: 'info',
+        title: 'Replied!',
+        text: '{{ session('replied_notification') }}',
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif
 </script>
 @endpush
 

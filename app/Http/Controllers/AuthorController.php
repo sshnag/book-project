@@ -47,6 +47,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Author::class);
         return view('authors.create');
     }
 
@@ -94,6 +95,7 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         //delete
+        $this->authorize('delete',$author);
         $this->authorrepo->delete($author);
         return redirect()->route('admin.authors.index')->with('success', 'Author is Archieved!');
     }

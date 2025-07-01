@@ -441,6 +441,11 @@ return [
             'url'=> '/admin/contacts',
             'icon'  => 'fas fa-envelope',
         ],
+        [
+            'text'  => 'User Site',
+            'url'=> '/',
+            'icon'  => 'fas fa-home',
+        ],
 
     ],
 

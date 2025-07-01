@@ -11,7 +11,7 @@
                 <div class="mb-3">
                     <label for="name" class="form-label">{{ __('Name') }}</label>
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                     @error('name')
                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                     @enderror
@@ -20,7 +20,7 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">{{ __('Email Address') }}</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" required autocomplete="email">
+                        name="email" value="{{ old('email') }}"  autocomplete="email">
                     @error('email')
                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                     @enderror
@@ -29,7 +29,7 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">{{ __('Password') }}</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                        name="password" required autocomplete="new-password">
+                        name="password"  autocomplete="new-password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                     @enderror
@@ -37,7 +37,7 @@
 
                 <div class="mb-4">
                     <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                         autocomplete="new-password">
                 </div>
 

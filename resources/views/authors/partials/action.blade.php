@@ -2,6 +2,8 @@
     <!-- Edit Button -->
 
 @include('sweetalert::alert')
+ @can('delete')
+
     <!-- Delete Button -->
     <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST" class="d-inline delete-form">
         @csrf
@@ -10,4 +12,6 @@
             <i class="fas fa-trash-alt"></i>
         </button>
     </form>
+
+ @endcan
 </div>

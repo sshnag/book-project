@@ -38,18 +38,33 @@
                                         @csrf
                                         @method('PATCH')
                                         <select name="status" onchange="this.form.submit()"
-                                            class="form-select form-select-sm"
-                                            @if (in_array($contact->status, ['read', 'replied'])) disabled @endif>
-                                            <option value="new" {{ $contact->status == 'new' ? 'selected' : '' }}>New
-                                            </option>
-                                            <option value="read" {{ $contact->status == 'read' ? 'selected' : '' }}>Read
-                                            </option>
-                                            <option value="replied" {{ $contact->status == 'replied' ? 'selected' : '' }}>
-                                                Replied</option>
+                                            class="form-select form-select-sm">
+                                            @if ($contact->status == 'new')
+                                                <option value="new" {{ $contact->status == 'new' ? 'selected' : '' }}>New
+                                                </option>
+                                                <option value="read" {{ $contact->status == 'read' ? 'selected' : '' }}>
+                                                    Read
+                                                </option>
+                                                <option value="replied"
+                                                    {{ $contact->status == 'replied' ? 'selected' : '' }}>
+                                                    Replied</option>
+                                            @elseif($contact->status == 'read')
+                                                <option value="read" {{ $contact->status == 'read' ? 'selected' : '' }}>
+                                                    Read
+                                                </option>
+                                                <option value="replied"
+                                                    {{ $contact->status == 'replied' ? 'selected' : '' }}>
+                                                    Replied</option>
+                                            @elseif ($contact->status == 'replied')
+                                                <option value="read" {{ $contact->status == 'read' ? 'selected' : '' }}>
+                                                    Read
+                                                </option>
+                                                <option value="replied"
+                                                    {{ $contact->status == 'replied' ? 'selected' : '' }}>
+                                                    Replied</option>
+                                            @endif
                                         </select>
-                                        @if (in_array($contact->status, ['read', 'replied']))
-                                            <small class="text-muted">Status locked</small>
-                                        @endif
+
 
                                     </form>
                                 </td>
@@ -58,6 +73,8 @@
                                         class="btn btn-sm btn-outline-info me-1">
                                         <i class="fas fa-eye"></i>
                                     </a>
+                                    @can('delete')
+
 
                                     <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST"
                                         class="d-inline delete-form">
@@ -67,6 +84,7 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
+                                      @endcan
                                 </td>
                             </tr>
                         @empty
@@ -78,7 +96,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer bg-white">
+        <div class="card-footer bg-white d-flex justify-content-end">
             {{ $contacts->links() }}
         </div>
     </div>

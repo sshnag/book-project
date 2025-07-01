@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Repositories\BookRepository;
 use App\Services\BookService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
 class BookController extends Controller
 {
     protected $bookrepo;
@@ -47,6 +49,7 @@ class BookController extends Controller
 
     public function create()
     {
+        $this->authorize('create',Book::class);
         $authors    = Author::all();
         $categories = Category::all();
         return view('books.create', compact('authors', 'categories'));
@@ -124,6 +127,7 @@ class BookController extends Controller
 
     public function destroy(Book $book)
     {
+        $this->authorize('delete',$book);
         $book->delete();
         return redirect()->route('admin.books.index')->with('success', 'Book is archived');
     }
@@ -165,7 +169,7 @@ class BookController extends Controller
 
         $books = $this->bookrepo->searchBooks($filters, 8); // paginate 8 per page for example
 
-        return view('books.search-results', compact('books'));
+        return view('search', compact('books'));
     }
 
 }

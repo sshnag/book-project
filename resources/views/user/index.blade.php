@@ -34,10 +34,7 @@
                                 <td>
                                     {{ implode(', ', $user->getRoleNames()->toArray()) }}
                                     <br>
-                                    <small class="text-muted">
-                                        Permissions:
-                                        {{ implode(', ', $user->getAllPermissions()->pluck('name')->toArray()) }}
-                                    </small>
+
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"

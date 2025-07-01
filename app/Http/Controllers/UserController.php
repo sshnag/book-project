@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $this->authorize('manage users');
+        Gate::authorize('manage-users');
 
         $users = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'superadmin');

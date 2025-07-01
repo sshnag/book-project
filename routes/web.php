@@ -33,7 +33,6 @@ Auth::routes(['middleware' => 'no-cache']);
 Route::middleware(['auth', 'no-cache'])->prefix('user')->name('user.')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/books/{book}', [BookController::class, 'userShow'])->name('books.show');
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download');
 });
 

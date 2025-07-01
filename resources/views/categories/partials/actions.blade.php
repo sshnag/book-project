@@ -1,4 +1,5 @@
 
+@can('delete')
 
 <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" class="d-inline delete-form">
     @csrf
@@ -7,3 +8,5 @@
         <i class="fas fa-trash-alt"></i>
     </button>
 </form>
+
+@endcan

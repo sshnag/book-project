@@ -21,6 +21,11 @@
                 <a class="dropdown-item py-2" href="{{ route('admin.books.create') }}">
                     <i class="fas fa-book me-2 text-primary"></i> Books
                 </a>
+                @can('create')
+                <a class="dropdown-item py-2" href="{{ route('admin.users.create') }}">
+                    <i class="fas fa-user me-2 text-primary"></i> Users
+                </a>
+                @endcan
 
             </div>
         </div>
@@ -74,6 +79,9 @@
                             <td>
                                 <a href="{{ route('admin.books.edit', $book->id) }}"
                                     class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
+                                    @can('delete')
+
+
                                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
                                     class="d-inline">
                                     @csrf
@@ -81,6 +89,7 @@
                                     <button type="submit" class="btn btn-sm btn-outline-danger"
                                         onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
                                 </form>
+                                    @endcan
                             </td>
                         </tr>
                     @empty
@@ -91,7 +100,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer bg-white">
+        <div class="card-footer bg-white d-flex justify-content-end">
             {{ $books->links() }}
         </div>
     </div>
