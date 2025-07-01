@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
 {
+
     public function __construct(protected ContactRepository $repo) {}
 
     public function create()
@@ -26,7 +27,7 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = $this->repo->getAllPaginated();
-        return view('contact.index', compact('contacts'));
+        return view('contact.index', data: compact('contacts'));
     }
 
     public function show($id)

@@ -26,6 +26,8 @@ class CategoryPOlicy
 
     /**
      * Determine whether the user can create models.
+         * both superadmin and bookadmin can create
+
      */
     public function create(User $user): bool
     {
@@ -42,6 +44,7 @@ class CategoryPOlicy
 
     /**
      * Determine whether the user can delete the model.
+     * Only superadmin can delete
      */
     public function delete(User $user, Category $category): bool
     {
