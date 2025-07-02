@@ -31,6 +31,7 @@ class LoginController extends Controller
         if (! $user || ! HashFacade::check($request->password, $user->password)) {
             return back()->withErrors([
                 'email' => 'Invalid credentials',
+                'password'=>'Invalid password',
             ])->withInput();
         }
 

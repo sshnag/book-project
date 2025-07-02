@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-   {{-- Admin Dashboard header section --}}
+    {{-- Admin Dashboard header section --}}
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="text-dark fw-bold">Admin Dashboard</h1>
         <div class="dropdown">
@@ -32,7 +32,7 @@
         </div>
     </div>
 @stop
- {{-- Admin Dashboard content section --}}
+{{-- Admin Dashboard content section --}}
 @section('content')
     <div class="row mb-4">
         <!-- Bar Chart Card -->
@@ -80,7 +80,7 @@
                             <td>
                                 <a href="{{ route('admin.books.edit', $book->id) }}"
                                     class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
-                                @can('delete',$book)
+                                @can('delete', $book)
                                     <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf

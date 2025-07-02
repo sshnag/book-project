@@ -10,6 +10,7 @@ use App\Repositories\BookRepository;
 use App\Services\BookService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Jobs\SendBookNotification;
 
 class BookController extends Controller
 {
@@ -63,7 +64,8 @@ class BookController extends Controller
         $validated = $request->validated();
         $fileData  = $this->bookservice->handleFileUploads($request);
         $validated = array_merge($validated, $fileData);
-        Book::create($validated);
+        $book=Book::create($validated);
+             SendBookNotification::dispatch($book);
 
         return redirect()->route('admin.books.index')->with('success', 'Book added successfully!');
     }
