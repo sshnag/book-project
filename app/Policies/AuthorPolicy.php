@@ -48,7 +48,7 @@ class AuthorPolicy
      */
     public function delete(User $user, Author $author): bool
     {
-        return $user->hasRole('superadin');
+        return $user->hasRole('superadmin');
     }
 
     /**

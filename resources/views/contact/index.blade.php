@@ -73,7 +73,7 @@
                                         class="btn btn-sm btn-outline-info me-1">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    @can('delete')
+                                    @can('delete',$contact)
 
 
                                     <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST"

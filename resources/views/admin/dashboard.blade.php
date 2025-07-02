@@ -4,6 +4,7 @@
 
 @section('content_header')
 
+   {{-- Admin Dashboard header section --}}
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="text-dark fw-bold">Admin Dashboard</h1>
         <div class="dropdown">
@@ -22,16 +23,16 @@
                     <i class="fas fa-book me-2 text-primary"></i> Books
                 </a>
                 @can('create')
-                <a class="dropdown-item py-2" href="{{ route('admin.users.create') }}">
-                    <i class="fas fa-user me-2 text-primary"></i> Users
-                </a>
+                    <a class="dropdown-item py-2" href="{{ route('admin.users.create') }}">
+                        <i class="fas fa-user me-2 text-primary"></i> Users
+                    </a>
                 @endcan
 
             </div>
         </div>
     </div>
 @stop
-
+ {{-- Admin Dashboard content section --}}
 @section('content')
     <div class="row mb-4">
         <!-- Bar Chart Card -->
@@ -79,17 +80,15 @@
                             <td>
                                 <a href="{{ route('admin.books.edit', $book->id) }}"
                                     class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
-                                    @can('delete')
-
-
-                                <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
-                                </form>
-                                    @endcan
+                                @can('delete',$book)
+                                    <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                     @empty
@@ -106,7 +105,7 @@
     </div>
 @stop
 
-
+{{-- CSS and javascript styles --}}
 @push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.css">
     <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">

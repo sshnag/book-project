@@ -17,11 +17,10 @@ class BookController extends Controller
     protected $bookservice;
 
     /**
-     *
-     * Initialize controller with repository and service dependencies.
-     * Summary of __construct
-     * @param \App\Repositories\BookRepository $bookrepo
-     * @param \App\Services\BookService $bookservice
+     * Inject the BookRepository and BookService dependencies.
+     * @author - SSA
+     * @param  \App\Repositories\BookRepository  $bookrepo
+     * @param  \App\Services\BookService  $bookservice
      */
     public function __construct(BookRepository $bookrepo, BookService $bookservice)
     {
@@ -30,11 +29,10 @@ class BookController extends Controller
     }
 
     /**
-     * Display paginated listing of books
-     * Summary of index
+     * Display a paginated list of books for admin panel view.
+     * @author - SSA
      * @return \Illuminate\Contracts\View\View
      */
-
     public function index()
     {
         $books = $this->bookrepo->getAllPaginated();
@@ -42,52 +40,44 @@ class BookController extends Controller
     }
 
     /**
-     * Summary of create
-     * Showing form for creating new book
+     * Show the form for creating a new book (admin only).
+     * @author - SSA
      * @return \Illuminate\Contracts\View\View
      */
-
     public function create()
     {
-        $this->authorize('create',Book::class);
+        $this->authorize('create', Book::class);
         $authors    = Author::all();
         $categories = Category::all();
         return view('books.create', compact('authors', 'categories'));
-
     }
 
     /**
-     * Store newly created book in storage
-     * Summary of store
-     * @param \App\Http\Requests\StoreBookRequest $request
+     * Store a newly created book in storage after validation and file handling.
+     * @author - SSA
+     * @param  \App\Http\Requests\StoreBookRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreBookRequest $request)
     {
-
         $validated = $request->validated();
-        //file handling through service
         $fileData  = $this->bookservice->handleFileUploads($request);
         $validated = array_merge($validated, $fileData);
         Book::create($validated);
 
-        // Debug the saved book
         return redirect()->route('admin.books.index')->with('success', 'Book added successfully!');
     }
 
     /**
-     * Summary of update
-     * Updated sepcific books in storage
-     * @param \App\Http\Requests\UpdateBookRequest $request
-     * @param \App\Models\Book $book
+     * Update the specified book's information and files in storage.
+     * @author - SSA
+     * @param  \App\Http\Requests\UpdateBookRequest  $request
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\RedirectResponse
-
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
         $validated = $request->validated();
-
-        //file handling through service
         $fileData  = $this->bookservice->handleFileUploads($request, $book);
         $validated = array_merge($validated, $fileData);
         $book->update($validated);
@@ -95,47 +85,46 @@ class BookController extends Controller
     }
 
     /**
-     * Summary of adminShow
-     * Display Book details for admin
-     * @param \App\Models\Book $book
+     * Display detailed book info for admins (with relationships).
+     * @author - SSA
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Contracts\View\View
      */
-
     public function adminShow(Book $book)
     {
         $book = Book::with(['author', 'category'])->findOrFail($book->id);
         return view('books.show', compact('book'));
     }
+
     /**
-     * Summary of userShow
-     * Display Book Details for the users
-     * @param \App\Models\Book $book
+     * Display book details to end users with author and category info.
+     * @author - SSA
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Contracts\View\View
      */
     public function userShow(Book $book)
     {
         $book = Book::with(['author', 'category'])->findOrFail($book->id);
-        return view('user.show', data: compact(var_name: 'book'));
+        return view('user.show', data: compact('book'));
     }
 
     /**
-     * Summary of destroy
-     * Archieved selected books (Softdelte)
-     * @param \App\Models\Book $book
+     * Archive (soft delete) the given book (admin only).
+     * @author - SSA
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function destroy(Book $book)
     {
-        $this->authorize('delete',$book);
+        $this->authorize('delete', $book);
         $book->delete();
         return redirect()->route('admin.books.index')->with('success', 'Book is archived');
     }
 
     /**
-     * Summary of edit
-     * Show from to edit the book details
-     * @param \App\Models\Book $book
+     * Show the form to edit a book’s details.
+     * @author - SSA
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Contracts\View\View
      */
     public function edit(Book $book)
@@ -146,30 +135,43 @@ class BookController extends Controller
     }
 
     /**
-     * Summary of download
-     * Download Book response and increment download count
-     * @param \App\Models\Book $book
-     * @return mixed|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * Handle file download and increase the book's download count.
+     * Returns the book's PDF file as response.
+     * @author - SSA
+     * @param  \App\Models\Book  $book
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-
     public function download(Book $book)
     {
-        //download handling through service
         $this->bookservice->incrementDownload($book);
         $file = storage_path('app/public/' . $book->file_path);
-        if (! file_exists($file)) {
+
+        if (!file_exists($file)) {
             abort(404, 'File Not Found!');
         }
+
         return response()->download($file, $book->title . '.pdf');
     }
 
+    /**
+     * Search books by title, author, category, or description.
+     * Returns a filtered result list to the user.
+     * @author - SSA
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\View\View
+     */
     public function search(Request $request)
     {
-        $filters = $request->only(['title', 'author', 'category', 'description']);
+        $query = $request->input('query');
 
-        $books = $this->bookrepo->searchBooks($filters, 8); // paginate 8 per page for example
+        $filters = [
+            'title'       => $query,
+            'author'      => $query,
+            'category'    => $query,
+            'description' => $query,
+        ];
 
+        $books = $this->bookrepo->searchBooks($filters, 8);
         return view('search', compact('books'));
     }
-
 }

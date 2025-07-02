@@ -1,49 +1,47 @@
 @extends('adminlte::page')
 
+@section('title', 'Add Category')
+
 @section('content')
-    <div class="container mx-auto max-w-lg mt-8 p-6 bg-white rounded-lg shadow-md">
-
-                    </div>
-
-        @if ($errors->any())
-            <div class="alert alert-danger mb-4">
-                <strong>Whoops!</strong> Please fix the following errors:<br><br>
-                <ul class="list-disc list-inside text-red-600">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-6">
-            @csrf
-
-            <div class="form-group">
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                <label for="name" class="block mb-2 text-gray-700 font-medium">Category Name</label>
-                 <a href="javascript:void(0)" onclick="history.back()"
-                    class="btn btn-secondary px-6 py-2 rounded-md font-semibold text-gray-700 border border-gray-300 hover:bg-gray-100 transition text-center">
-                    Back
-                </a>
-                                    </div>
-
-                <input type="text" id="name" name="name" value="{{ old('name') }}"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline focus:ring-2  "
-                    placeholder="Enter category name">
-            </div>
-
-            <div class="flex space-x-4">
-                <button type="submit" class="btn btn-outline-dark">
-                    Create Category
-                </button>
-
-            </div>
-        </form>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Add New Category</h2>
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Back</a>
     </div>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> Please fix the following errors:
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('admin.categories.store') }}" method="POST">
+        @csrf
+
+        <div class="form-group mb-3">
+            <label for="name">Category Name<span class="text-danger">*</span></label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control @error('name') is-invalid @enderror"
+                placeholder="Enter category name"
+                value="{{ old('name') }}"
+                required
+            >
+            @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-outline-dark">Create Category</button>
+        </div>
+    </form>
+</div>
 @endsection
-@push('styles')
-    <link rel="stylesheet" href="{{ asset(path: 'css/book.css') }}">
-@endpush

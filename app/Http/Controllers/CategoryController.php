@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
-use App\Models\Book;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
@@ -40,9 +39,9 @@ class CategoryController extends Controller
     }
 
     public function getDataTable(CategoryRepository $categoryrepo)
-{
-    return $categoryrepo->getDataTable();
-}
+    {
+        return $categoryrepo->getDataTable();
+    }
 
     /**
      * Summary of create
@@ -52,7 +51,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Category::class);
+        $this->authorize('create', Category::class);
         return view('categories.create');
     }
 
@@ -96,8 +95,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->authorize('delete',$category);
-        $this->categoryrepo->delete($category);
+        $this->authorize('delete', $category);
+        $category->delete();
         return redirect()->route('admin.categories.index')->with('success', 'Category is archieved!');
     }
 

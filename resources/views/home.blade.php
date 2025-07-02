@@ -90,8 +90,9 @@
             @foreach ($popularBooks as $book)
                 <div role="listitem" class="card snap-center border-0 shadow-sm transition-transform hover-scale"
                     style="min-width: 260px;">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top rounded-top"
-                        alt="{{ $book->title }}">
+                    <img src="{{ $book->cover_image ? asset('storage/' . $book->cover_image) : asset('images/default-book.jpg') }}"
+                        class="card-img-top" alt="{{ $book->title }}">
+
                     <div class="card-body">
                         <h5 class="card-title pink-text">{{ $book->title }}</h5>
                         <p class="text-muted mb-2 small">By {{ $book->author->name ?? 'Unknown' }}</p>
@@ -111,8 +112,9 @@
                 <div class="col-md-4 fade-in">
                     <div class="card h-100 shadow-sm position-relative transition-transform hover-scale">
                         <div class="book-badge">New</div>
-                        <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img-top"
-                            alt="{{ $book->title }}">
+                        <img src="{{ $book->cover_image ? asset('storage/' . $book->cover_image) : asset('images/default-book.jpg') }}"
+                            class="card-img-top" alt="{{ $book->title }}">
+
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title pink-text">{{ $book->title }}</h5>
                             <p class="text-muted mb-1">By {{ $book->author->name ?? 'Unknown' }}</p>
@@ -138,8 +140,9 @@
                 @foreach ($relatedBooks as $related)
                     <div class="col-md-3 fade-in">
                         <div class="card h-100 shadow-sm transition-transform hover-scale">
-                            <img src="{{ asset('storage/' . $related->cover_image) }}" class="card-img-top"
-                                alt="{{ $related->title }}">
+                            <img src="{{ $book->cover_image ? asset('storage/' . $book->cover_image) : asset('images/default-book.jpg') }}"
+                                class="card-img-top" alt="{{ $book->title }}">
+
                             <div class="card-body">
                                 <h6 class="card-title pink-text">{{ $related->title }}</h6>
                                 <p class="text-muted small mb-2">By {{ $related->author->name ?? 'Unknown' }}</p>
@@ -185,18 +188,18 @@
     </script>
 @endpush
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-   @if (session('replied_notification'))
-<script>
-    Swal.fire({
-        icon: 'info',
-        title: 'Replied!',
-        text: '{{ session('replied_notification') }}',
-        confirmButtonText: 'OK'
-    });
-</script>
-@endif
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('replied_notification'))
+            <
+            script >
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Replied!',
+                    text: '{{ session('replied_notification') }}',
+                    confirmButtonText: 'OK'
+                });
+    </>
+    @endif
+    </script>
 @endpush
-

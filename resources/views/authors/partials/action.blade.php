@@ -1,8 +1,7 @@
 <div class="btn-group" role="group">
-    <!-- Edit Button -->
 
 @include('sweetalert::alert')
- @can('delete')
+ @can('delete',$author)
 
     <!-- Delete Button -->
     <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST" class="d-inline delete-form">

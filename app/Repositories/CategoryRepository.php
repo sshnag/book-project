@@ -30,7 +30,7 @@ class CategoryRepository
 
     public function delete(Category $category)
     {
-        return $category->delete();
+
     }
 
     public function find($id)
